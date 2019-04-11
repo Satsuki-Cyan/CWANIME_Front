@@ -1,0 +1,10 @@
+1. cnpm install
+
+2. cnpm install axios -S
+
+3. cnpm i element-ui -S
+
+4. cnpm install -D webpack-cli
+
+5. cnpm i -D webpack-dev-server@2.9.7
+

@@ -1,28 +1,39 @@
 <template>
   <div id="component-header">
-    <el-menu :default-active="1" active-text-color="#F60" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <el-menu :default-active="defaultActive" active-text-color="#F60" class="el-menu-demo" mode="horizontal"
+             @select="handleSelect">
       <el-menu-item index="1">Main</el-menu-item>
       <el-submenu index="2">
-        <template slot="title">我的工作台</template>
-        <el-menu-item index="2-1">选项1</el-menu-item>
-        <el-menu-item index="2-2">选项2</el-menu-item>
-        <el-menu-item index="2-3">选项3</el-menu-item>
+        <template slot="title"><i class="el-icon-menu"></i>Anime</template>
+        <el-menu-item index="2-1">Apr. 2019</el-menu-item>
+        <el-menu-item index="2-2">Jan. 2019</el-menu-item>
+        <el-menu-item index="2-3">Oct. 2018</el-menu-item>
         <el-submenu index="2-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="2-4-1">选项1</el-menu-item>
-          <el-menu-item index="2-4-2">选项2</el-menu-item>
-          <el-menu-item index="2-4-3">选项3</el-menu-item>
+          <template slot="title">More</template>
+          <el-menu-item index="2-4-1">111</el-menu-item>
+          <el-menu-item index="2-4-2">222</el-menu-item>
+          <el-menu-item index="2-4-3">333</el-menu-item>
         </el-submenu>
       </el-submenu>
-      <el-menu-item index="3" disabled>消息中心</el-menu-item>
-      <el-menu-item index="4">订单管理</el-menu-item>
+      <el-menu-item index="3"><i class="el-icon-picture-outline"></i>Image</el-menu-item>
+      <el-menu-item index="4">Game</el-menu-item>
+
+      <!-- 全局的搜索框 -->
+      <el-menu-item class="header-nav-search">
+        <el-input placeholder="请输入内容" v-model="searchContent" class="input-with-select" size="small">
+          <el-select v-model="searchPrefix" slot="prepend" placeholder="请选择">
+            <el-option label="Anime" value="1"></el-option>
+            <el-option label="Image" value="2"></el-option>
+            <el-option label="Game" value="3"></el-option>
+          </el-select>
+          <el-button slot="append" icon="el-icon-search"></el-button>
+        </el-input>
+      </el-menu-item>
 
       <!-- 这里考虑再给一个登录按钮之类的，成功后要渲染出头像及消息一类的按钮 -->
-      <!-- 改按钮 -->
-      <el-button icon="el-icon-search" class="header-nav-sign-in" circle></el-button>
-      <!--<el-menu-item index="5" class="header-nav-first">Sign In</el-menu-item>-->
-    </el-menu>
+      <el-button class="header-nav-sign-in" size="medium " round>Sign In</el-button>
 
+    </el-menu>
 
   </div>
 </template>
@@ -32,7 +43,11 @@
     el: "component-header",
     name: "Header",
     data() {
-      return {}
+      return {
+        defaultActive: '1',
+        searchPrefix: '',
+        searchContent: ''
+      }
     },
     methods: {
       handleSelect(key, keyPath) {
@@ -43,23 +58,45 @@
 </script>
 
 <style scoped>
+
+  #component-header {
+
+  }
+
+  .el-menu {
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 1);
+    border: 0;
+  }
+
   .header-nav-first {
     float: right;
   }
 
-  .header-nav-sign-in{
+  .header-nav-sign-in {
     float: right;
-    margin-top: 0.625rem;
+    margin-top: 0.875rem;
   }
 
-  .header-nav {
-    border-radius: 1.25rem;
+  .header-nav-sign-in :hover {
+
   }
 
-  .el-menu-item :hover {
-    color: #F60;
+  .el-menu-item:hover {
+    background: #FFD48F;
   }
 
+  .header-nav-search {
+    margin-left: 2.5rem;
+  }
+
+  .el-select {
+    width: 100px;
+  }
+
+  .input-with-select .el-input-group__prepend {
+    background-color: #fff;
+  }
 
 
 </style>

@@ -3,16 +3,22 @@
     <el-container>
 
       <!-- Left Nav -->
-      <el-aside width="20rem">Aside</el-aside>
+      <el-aside width="17rem">Aside</el-aside>
+
       <!-- Body -->
       <el-container>
-        <!--　Header　-->
+        <!--　Header-Menu　-->
         <el-header>
           <component-header></component-header>
         </el-header>
 
         <!-- Main Content -->
-        <el-container>
+        <el-container class="main-content">
+          <!-- Anime Title -->
+          <el-header class="area-title">
+asd
+          </el-header>
+
           <el-main>
             Content
           </el-main>
@@ -23,7 +29,7 @@
       </el-container>
 
       <!-- Right Nav -->
-      <el-aside width="20rem">Aside</el-aside>
+      <el-aside width="17rem">Aside</el-aside>
     </el-container>
   </div>
 </template>
@@ -50,6 +56,10 @@
     margin-top: 0;
   }
 
+  .el-header {
+    padding: 0;
+  }
+
   .el-footer {
     background-color: #B3C0D1;
     color: #333;
@@ -65,10 +75,19 @@
   }
 
   .el-main {
-    background-color: #E9EEF3;
-    color: #333;
+    background: rgba(255,255,255,0.9);
     text-align: center;
     line-height: 10rem;
+  }
+
+  .area-title {
+    background: rgba(255,255,255,0.9);
+    border-bottom: 1px solid #000;
+  }
+
+
+  .main-content {
+    margin-top: 50px;
   }
 
 
