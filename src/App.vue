@@ -13,8 +13,8 @@
 <style>
 body {
   margin: 0;
-  background: url("./assets/background_0001.jpg") no-repeat fixed;
-  background-size: cover;
+  /*background: url("./assets/background_0001.jpg") no-repeat fixed;*/
+  /*background-size: cover;*/
 }
   #app {
 

@@ -65,7 +65,9 @@
 
   .el-menu {
     padding: 0 20px;
-    background: rgba(255, 255, 255, 1);
+    /*background: rgba(255, 255, 255, 1);*/
+    opacity: 0.8;
+    border-radius:  0 0 20px 20px;
     border: 0;
   }
 
