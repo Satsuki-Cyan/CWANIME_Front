@@ -21,7 +21,7 @@
 
           <el-main>
             <index-anime-nav></index-anime-nav>
-            <index-anime-content></index-anime-content>
+
           </el-main>
 
         </el-container>
