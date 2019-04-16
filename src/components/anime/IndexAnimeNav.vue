@@ -75,6 +75,9 @@
 <style scoped>
   .el-row {
     margin-bottom: 20px;
+    background: #FFF;
+    opacity: 1;
+    padding: 20px;
   }
 
   .el-col {
@@ -96,7 +99,6 @@
   .week-sun {
     color: #000;
     background: #FFF;
-    border: 1px solid;
   }
 
   .week-sun.selected {
@@ -117,7 +119,6 @@
   .week-mon {
     color: #CCC;
     background: #FFF;
-    border: 1px solid;
   }
 
   .week-mon.selected {
@@ -138,7 +139,6 @@
   .week-tues {
     color: #FE7B67;
     background: #FFF;
-    border: 1px solid;
   }
 
   .week-tues.selected {
@@ -159,7 +159,6 @@
   .week-wed {
     color: #6CF;
     background: #FFF;
-    border: 1px solid;
   }
 
   .week-wed.selected {
@@ -180,7 +179,6 @@
   .week-thur {
     color: #65E4BA;
     background: #FFF;
-    border: 1px solid;
   }
 
   .week-thur.selected {
@@ -201,7 +199,6 @@
   .week-fri {
     color: #E8E7A0;
     background: #FFF;
-    border: 1px solid;
   }
 
   .week-fri.selected {
@@ -222,7 +219,6 @@
   .week-sat {
     color: #BA8BF8;
     background: #FFF;
-    border: 1px solid;
   }
 
   .week-sat.selected {
@@ -243,7 +239,6 @@
   .movieToOva {
     background: #FFF;
     color: #DE74D6;
-    border: 1px solid;
   }
 
   .movieToOva.selected {

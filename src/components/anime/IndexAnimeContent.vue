@@ -97,6 +97,10 @@
 
 <style scoped>
 
+  #indexAnimeContent {
+    padding: 20px;
+  }
+
   .el-col {
     width: 15.6875rem;
     border-radius: 0.625rem;
