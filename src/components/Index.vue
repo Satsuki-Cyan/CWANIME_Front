@@ -43,7 +43,9 @@
       </el-container>
 
       <!-- Right Nav -->
-      <el-aside width="17rem">Aside</el-aside>
+      <el-aside width="17rem">
+        <right-aside></right-aside>
+      </el-aside>
     </el-container>
   </div>
 </template>
@@ -53,6 +55,7 @@
   import ComponentHeader from './Header'
   import IndexAnimeNav from './anime/IndexAnimeNav'
   import IndexAnimeContent from './anime/IndexAnimeContent'
+  import RightAside from './RightAside'
 
   export default {
     name: "Index",
@@ -64,7 +67,8 @@
     components: {
       ComponentHeader,
       IndexAnimeNav,
-      IndexAnimeContent
+      IndexAnimeContent,
+      RightAside
     }
   }
 </script>
@@ -79,20 +83,20 @@
   }
 
   .el-footer {
-    background-color: #B3C0D1;
+    background-color: #FFF;
     color: #333;
     text-align: center;
     line-height: 3.75rem;
-    opacity: 0.5;
+    opacity: 0.8;
     margin-top: 50px;
+    border-radius:  20px 20px 0 0;
   }
 
   .el-aside {
-    background-color: #D3DCE6;
+    background-color: rgba(255,255,255,0);
     color: #333;
     text-align: center;
     line-height: 12.5rem;
-    opacity: 0;
   }
 
   .el-main {

@@ -4,9 +4,11 @@ import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import Index from '@/components/Index'
 import SystemConstant from '@/constants/systemConstant'
+import CommonUtil from '@/utils/commonUtil'
 
 Vue.use(Router)
 Vue.prototype.SYS_CONST = SystemConstant
+Vue.prototype.COMMON_UTIL = CommonUtil
 
 export default new Router({
   routes: [
@@ -27,8 +29,7 @@ export default new Router({
     },
     {
       path: '/',
-      name: '',
-      component: Index
+      redirect: '/index'
     }
   ]
 })

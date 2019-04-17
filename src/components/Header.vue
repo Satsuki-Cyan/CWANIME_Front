@@ -31,7 +31,7 @@
       </el-menu-item>
 
       <!-- 这里考虑再给一个登录按钮之类的，成功后要渲染出头像及消息一类的按钮 -->
-      <el-button class="header-nav-sign-in" size="medium " round>Sign In</el-button>
+      <el-button class="header-nav-sign-in" size="medium " round>Sign In / Up</el-button>
 
     </el-menu>
 
@@ -65,8 +65,8 @@
 
   .el-menu {
     padding: 0 20px;
-    /*background: rgba(255, 255, 255, 1);*/
-    opacity: 0.8;
+    background: rgba(255, 255, 255, 1);
+    /*opacity: 0.8;*/
     border-radius:  0 0 20px 20px;
     border: 0;
   }

@@ -1,12 +1,11 @@
 <template>
   <div id="indexAnimeContent">
     <el-carousel arrow="never" :height="animeCarouselHeight" indicator-position="none" :autoplay="false" ref="animeCarousel">
-      <el-carousel-item v-for="(val,i) in testAnimeContent" :key="val.key">
-        <el-row>
+      <el-carousel-item v-for="(val,i) in weekContent" :key="val.key">
+        <el-row v-if="JSON.stringify(val.contentArr)!='[]'">
           <el-col :span="animeContentSpan" v-for="(contentObj, index) in val.contentArr" :key="contentObj.id">
             <el-card>
-              <img :src="contentObj.imgSrc"  class="image" ref="image" />
-              <!--<img src="../../../static/logo.png" class="image" />-->
+              <img :src="contentObj.imgSrc" class="image" ref="image" />
               <div class="content">
                 <span :title="contentObj.title" class="content-setsumei">{{contentObj.title}}</span>
                 <div class="bottom clearfix">
@@ -17,6 +16,7 @@
             </el-card>
           </el-col>
         </el-row>
+        <img src="../../assets/contentEmptyDefault.png" v-else />
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -24,36 +24,19 @@
 
 <script>
 
-  // const testAnimeContent = [
-  //   {"key" : "sun", "contentArr" : [{"id" : "1","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-  //       {"id" : "11","imgSrc" : "u=4083493357,2327411348&fm=26&gp=0.jpg","title" : "123123123","createTime":"2019-04-01"},
-  //       {"id" : "111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-  //       {"id" : "1111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-  //       {"id" : "11111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-  //       {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-  //       {"id" : "1111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"}
-  //   ]},
-  //   {"key" : "mon", "contentArr" : [{"id" : "2","imgSrc" : "../../../static/logo.png","title" : "22222","createTime":"2019-04-11"}]},
-  //   {"key" : "tues", "contentArr" : [{"id" : "3","imgSrc" : "../../../static/logo.png","title" : "333333","createTime":"2019-04-12"}]},
-  //   {"key" : "wed", "contentArr" : [{"id" : "4","imgSrc" : "../../../static/logo.png","title" : "44444","createTime":"2019-03-01"}]},
-  //   {"key" : "thur", "contentArr" : [{"id" : "5","imgSrc" : "../../../static/logo.png","title" : "5555","createTime":"2019-03-21"}]},
-  //   {"key" : "fri", "contentArr" : [{"id" : "6","imgSrc" : "../../../static/logo.png","title" : "6666","createTime":"2019-05-21"}]},
-  //   {"key" : "sat", "contentArr" : [{"id" : "7","imgSrc" : "../../../static/logo.png","title" : "7777","createTime":"2019-03-30"}]},
-  //   {"key" : "movieToOva", "contentArr" : [{"id" : "8","imgSrc" : "../../../static/logo.png","title" : "88888","createTime":"2019-06-01"}]},
-  // ];
-
-  let testAnimeContent = [
-    {"key" : "sun"},
-    {"key" : "mon"},
-    {"key" : "tues"},
-    {"key" : "wed"},
-    {"key" : "thur"},
-    {"key" : "fri"},
-    {"key" : "sat"},
-    {"key" : "movieToOva"},
+  let weekContent = [
+    {"key" : "sun", "day" : 0, "contentArr" : []},
+    {"key" : "mon", "day" : 1, "contentArr" : []},
+    {"key" : "tues", "day" : 2, "contentArr" : []},
+    {"key" : "wed", "day" : 3, "contentArr" : []},
+    {"key" : "thur", "day" : 4, "contentArr" : []},
+    {"key" : "fri", "day" : 5, "contentArr" : []},
+    {"key" : "sat", "day" : 6, "contentArr" : []}
   ];
 
-  // req get these data (for Sun.)
+  let movieToOvaContent = {"key" : "movieToOva", "day" : "7", "contentArr" : []};
+
+  // req get these data (for today)
   let testContent = [{"id" : "1","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
     {"id" : "11","imgSrc" : "u=4083493357,2327411348&fm=26&gp=0.jpg","title" : "123123123","createTime":"2019-04-01"},
     {"id" : "111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
@@ -63,33 +46,43 @@
     {"id" : "1111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"}
   ];
 
+  const today = new Date().getDay();
 
   export default {
     name: "IndexAnimeContent",
     data() {
       return {
         "animeContentSpan" : 6,
-        "animeCarouselHeight" : "33.75rem",
-        "testAnimeContent": '',
+        "animeCarouselHeight" : "615px",
+        "weekContent": '',
         "currentDate": new Date()
       }
     },
     mounted() {
-      this.SYS_CONST.addSystemResourcePrefix(testContent, "imgSrc")
-
-      for( let testAnimeObj of testAnimeContent ) {
-        if( testAnimeObj.key === "sun" ) {
-          testAnimeObj.contentArr = testContent
-        }
-      }
-      this.testAnimeContent = testAnimeContent
+      // 1. 配合日期，给keys进行排序
+      weekContent = this.COMMON_UTIL.sortJSONArray(weekContent, today);
+      weekContent.push(movieToOvaContent);
     },
     methods: {
       setActiveItem: function (index) {
         this.$refs.animeCarousel.setActiveItem(index);
       },
-      initAnimeContent: function (day) {
-
+      initAnimeContent: function (index, day) {
+        // 1. 加载过内容的曜日不再进行数据请求
+        if( weekContent[index].contentArr.length === 0 ) {
+          // 2. 获取当前选中的曜日的内容
+          // TODO 暂时用的 testContent，修改后用day去查询
+          // 3. 处理文件src路径的前缀
+          this.SYS_CONST.addSystemResourcePrefix(testContent, "imgSrc");
+          // 4. 注入对应曜日的内容
+          for(let animeObj of weekContent) {
+            if( animeObj.day === day ) {
+              animeObj.contentArr = testContent;
+              break;
+            }
+          }
+          this.weekContent = weekContent;
+        }
       }
     }
   }
@@ -98,11 +91,11 @@
 <style scoped>
 
   #indexAnimeContent {
-    padding: 20px;
+    padding: 1.25rem;
   }
 
   .el-col {
-    width: 15.6875rem;
+    width: 15.9375rem;
     border-radius: 0.625rem;
     margin: 0 0.3125rem;
     padding: 0.3125rem;
@@ -135,9 +128,10 @@
   }
 
   .image {
-    width: 10rem;
-    height: 10rem;
+    width: 12.5rem;
+    height: 12.5rem;
     cursor: pointer;
+    border-radius: 10px;
   }
 
   .clearfix:before,

@@ -8,14 +8,18 @@
   export default {
     name: 'App'
   }
+
+  // 设置body-width与屏幕width一致（减去20px进行修正）
+  document.getElementsByTagName("body")[0].style.width = (window.screen.availWidth - 20) + "px";
 </script>
 
 <style>
-body {
-  margin: 0;
-  background: url("./assets/background_0002.jpg") no-repeat fixed;
-  background-size: cover;
-}
+  body {
+    margin: 0;
+    background: url("./assets/background_0003.jpg") no-repeat fixed;
+    background-size: cover;
+  }
+
   #app {
 
   }
