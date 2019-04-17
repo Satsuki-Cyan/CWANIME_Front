@@ -16,7 +16,7 @@
         <el-container class="main-content">
           <!-- Anime Title -->
           <el-header class="area-title">
-            <img src="../assets/index_bangumi.png" />
+            <img src="../../static/index_bangumi.png" />
           </el-header>
 
           <el-main>
@@ -29,7 +29,7 @@
         <el-container class="main-content">
           <!-- Picture Title -->
           <el-header class="area-title">
-            <img src="../assets/index_picture.png" />
+            <img src="../../static/index_picture.png" />
           </el-header>
 
           <el-main>

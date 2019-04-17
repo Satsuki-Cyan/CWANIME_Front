@@ -16,8 +16,9 @@
 <style>
   body {
     margin: 0;
-    background: url("./assets/background_0003.jpg") no-repeat fixed;
+    background: url("../static/background_0003.jpg") no-repeat fixed;
     background-size: cover;
+    transition: background 1s;
   }
 
   #app {

@@ -16,7 +16,7 @@
             </el-card>
           </el-col>
         </el-row>
-        <img src="../../assets/contentEmptyDefault.png" v-else />
+        <img src="../../../static/contentEmptyDefault.png" v-else />
       </el-carousel-item>
     </el-carousel>
   </div>

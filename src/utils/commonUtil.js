@@ -9,9 +9,9 @@ let sortJSONArray = (jsonArray, index) => {
 }
 
 /**
- * 获取一个指定区间的随机数
+ * 获取一个指定区间的随机数（如果与ignore一致则继续random　）
  */
-function randomNum(minNum, maxNum) {
+function randomNum(minNum, maxNum, ignoreNum) {
   let resNum;
   switch (arguments.length) {
     case 1:
@@ -24,7 +24,7 @@ function randomNum(minNum, maxNum) {
       resNum = 0;
       break;
   }
-  console.log(resNum)
+  return resNum;
 }
 
 

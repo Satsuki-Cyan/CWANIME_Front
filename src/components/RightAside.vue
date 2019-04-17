@@ -1,6 +1,6 @@
 <template>
   <div id="rightAside">
-    <img src="../assets/randomizedBackground.png" class="randomized-background" @click="randomizedBackground" />
+    <img src="../../static/randomizedBackground.png" class="randomized-background" @click="randomizedBackground" />
   </div>
 </template>
 
@@ -9,8 +9,9 @@
     name: "RightAside",
     methods: {
       randomizedBackground: function () {
-        console.log(document.body.style.background)
-        document.body.style.backgroundImage = "url(\"../assets/background_0002.jpg\")";
+        let num = this.COMMON_UTIL.randomNum(1, 6);
+        console.log(num)
+        document.body.style.backgroundImage = "url(./static/background_000" + num + ".jpg)";
       }
     }
   }
