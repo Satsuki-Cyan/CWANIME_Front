@@ -105,7 +105,7 @@
   }
 
   .week-english {
-    padding: 0px 5px;
+    padding: 0 5px;
     border-radius: 30px;
   }
 
@@ -261,12 +261,12 @@
 
   .movieToOva > .week-english {
     font-size: 14px;
-    padding: 0px 5px;
+    padding: 0 5px;
   }
 
   .movieToOva > .week-english {
     font-size: 14px;
-    padding: 0px 5px;
+    padding: 0 5px;
   }
 
 </style>

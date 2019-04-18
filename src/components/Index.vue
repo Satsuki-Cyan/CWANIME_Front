@@ -104,7 +104,7 @@
   }
 
   .el-main {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.6);
     text-align: center;
     line-height: 10rem;
     padding: 0 0 20px;

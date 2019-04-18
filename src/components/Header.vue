@@ -1,5 +1,5 @@
 <template>
-  <div id="component-header">
+  <div id="componentHeader">
     <el-menu :default-active="defaultActive" active-text-color="#F60" class="el-menu-demo" mode="horizontal"
              @select="handleSelect">
       <el-menu-item index="1">Main</el-menu-item>
@@ -40,7 +40,6 @@
 
 <script>
   export default {
-    el: "component-header",
     name: "Header",
     data() {
       return {
@@ -58,10 +57,6 @@
 </script>
 
 <style scoped>
-
-  #component-header {
-
-  }
 
   .el-menu {
     padding: 0 20px;
