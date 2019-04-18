@@ -6,11 +6,14 @@
 
 <script>
   export default {
-    name: 'App'
+    name: 'App',
+    mounted: function () {
+      // 1. 设置body-width与屏幕width一致（减去20px进行修正）
+      document.body.style.width = (window.screen.availWidth - 20) + "px";
+    }
   }
 
-  // 设置body-width与屏幕width一致（减去20px进行修正）
-  document.getElementsByTagName("body")[0].style.width = (window.screen.availWidth - 20) + "px";
+
 </script>
 
 <style>
@@ -18,10 +21,10 @@
     margin: 0;
     background: url("../static/background_0003.jpg") no-repeat fixed;
     background-size: cover;
-    transition: background 1s;
+    transition: all 1s;
   }
 
   #app {
-
+    transition: all 1s;
   }
 </style>

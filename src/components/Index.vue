@@ -3,7 +3,9 @@
     <el-container>
 
       <!-- Left Nav -->
-      <el-aside width="17rem">Aside</el-aside>
+      <el-aside width="17rem">
+        <left-aside></left-aside>
+      </el-aside>
 
       <!-- Body -->
       <el-container>
@@ -56,6 +58,7 @@
   import IndexAnimeNav from './anime/IndexAnimeNav'
   import IndexAnimeContent from './anime/IndexAnimeContent'
   import RightAside from './RightAside'
+  import LeftAside from './LeftAside'
 
   export default {
     name: "Index",
@@ -68,7 +71,8 @@
       ComponentHeader,
       IndexAnimeNav,
       IndexAnimeContent,
-      RightAside
+      RightAside,
+      LeftAside
     }
   }
 </script>
