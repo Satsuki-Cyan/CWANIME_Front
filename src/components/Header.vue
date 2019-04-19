@@ -2,6 +2,7 @@
   <div id="componentHeader">
     <el-menu :default-active="defaultActive" active-text-color="#F60" class="el-menu-demo" mode="horizontal"
              @select="handleSelect">
+      <el-menu-item index="0" style="display: none;"></el-menu-item>
       <el-menu-item index="1">Main</el-menu-item>
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-menu"></i>Anime</template>
@@ -30,8 +31,8 @@
         </el-input>
       </el-menu-item>
 
-      <!-- 这里考虑再给一个登录按钮之类的，成功后要渲染出头像及消息一类的按钮 -->
-      <el-button class="header-nav-sign-in" size="medium " round>Sign In / Up</el-button>
+      <!-- 成功后要渲染出头像及消息一类的选项 -->
+      <el-button class="header-nav-sign-in" size="medium" @click="signInOrUp" round>Sign In / Up</el-button>
 
     </el-menu>
 
@@ -51,6 +52,19 @@
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
+        let address = "";
+        if(key === "1") {
+          address = "/index"
+        }
+        this.pageGoTo(address);
+      },
+      signInOrUp: function () {
+        this.pageGoTo('/login');
+      },
+      pageGoTo: function (address) {
+        this.$router.push({
+          path: address
+        });
       }
     }
   }
@@ -62,7 +76,7 @@
     padding: 0 20px;
     background: rgba(255, 255, 255, 1);
     /*opacity: 0.8;*/
-    border-radius:  0 0 20px 20px;
+    border-radius: 0 0 20px 20px;
     border: 0;
   }
 

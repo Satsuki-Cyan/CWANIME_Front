@@ -59,9 +59,6 @@
       }
     },
     mounted() {
-      // 2019.04.16 请求是分多段的，进主页默认加载当天的数据，第一次点击其他day才会去请求加载对应的数据（不要一开始全加载。。）
-      // ———— 请求完再组装上面的testContent，并调用addSystemResourcePrefix进行src处理，加上key，再push进testAnimeContent
-
       // 1. 根据当日决定曜日排序
       let weekArrSort = this.COMMON_UTIL.sortJSONArray(weekArr, today);
       weekArrSort.push(movieToOva);

@@ -23,8 +23,21 @@ let randomNum = (minNum, maxNum, ignoreNum) => {
   return resNum;
 }
 
+/**
+ * 生成指定长度、区间的随机数字字符串
+ */
+let randomNumStr = (minNum, maxNum, ignoreNum, length) => {
+  let resNum = randomNum(minNum, maxNum, ignoreNum) + "";
+  let dealNum = length - resNum.length
+  for (let i = 0; i < dealNum; i++) {
+    resNum = "0" + resNum;
+  }
+  return resNum;
+}
+
 
 export default {
   sortJSONArray,
-  randomNum
+  randomNum,
+  randomNumStr
 }

@@ -60,8 +60,10 @@
     },
     mounted() {
       // 1. 配合日期，给keys进行排序
-      weekContent = this.COMMON_UTIL.sortJSONArray(weekContent, today);
-      weekContent.push(movieToOvaContent);
+      if(weekContent.length === 7) {
+        weekContent = this.COMMON_UTIL.sortJSONArray(weekContent, today);
+        weekContent.push(movieToOvaContent);
+      }
     },
     methods: {
       setActiveItem: function (index) {
@@ -72,6 +74,7 @@
         if( weekContent[index].contentArr.length === 0 ) {
           // 2. 获取当前选中的曜日的内容
           // TODO 暂时用的 testContent，修改后用day去查询
+
           // 3. 处理文件src路径的前缀
           this.SYS_CONST.addSystemResourcePrefix(testContent, "imgSrc");
           // 4. 注入对应曜日的内容
@@ -81,8 +84,8 @@
               break;
             }
           }
-          this.weekContent = weekContent;
         }
+        this.weekContent = weekContent;
       }
     }
   }

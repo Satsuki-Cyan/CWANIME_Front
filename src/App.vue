@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition name="pageChangeSlide">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -19,7 +21,7 @@
 <style>
   body {
     margin: 0;
-    background: url("../static/background_0003.jpg") no-repeat fixed;
+    background: url("../static/background_0000.jpg") no-repeat fixed;
     background-size: cover;
     transition: all 1s;
   }
@@ -27,4 +29,13 @@
   #app {
     transition: all 1s;
   }
+
+  .pageChangeSlide-enter, .pageChangeSlide-leave, .pageChangeSlide-enter-to, .pageChangeSlide-leave-to {
+    opacity: 0;
+  }
+
+  .pageChangeSlide-enter-active, .pageChangeSlide-leave-active {
+    transition: opacity 500ms;
+  }
+
 </style>
