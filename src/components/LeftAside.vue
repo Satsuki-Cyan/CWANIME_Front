@@ -37,7 +37,7 @@
           // 2. 弹出提示消息
           this.$notify({
             title: '',
-            message: '按ESC退出壁纸模式',
+            message: '按ESC退出壁纸模式，点击这里下载该壁纸',
             duration: 0
           });
           // 3. 通过过渡效果来隐藏页面元素

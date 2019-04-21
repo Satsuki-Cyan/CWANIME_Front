@@ -15,6 +15,7 @@
         </el-header>
 
         <!-- Anime Content -->
+        <div>
         <el-container class="main-content">
           <!-- Anime Title -->
           <el-header class="area-title">
@@ -39,7 +40,7 @@
           </el-main>
 
         </el-container>
-
+        </div>
         <!-- Footer -->
         <el-footer>{{footer}}</el-footer>
       </el-container>

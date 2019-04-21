@@ -2,13 +2,13 @@
   <div id="signIn">
 
     <!-- Login Image -->
-    <div>
-
+    <div class="login-img">
+      <!--<img />-->
     </div>
 
     <!-- Login Form -->
     <div class="login-form">
-      <el-form ref="loginRef" label-position="right" :model="loginForm" label-width="80px">
+      <el-form ref="loginRef" label-position="right" :model="loginForm" label-width="160px">
         <el-form-item label="AccountNo">
           <el-input v-model="loginForm.accountNo"></el-input>
         </el-form-item>
@@ -44,9 +44,32 @@
 
 <style scoped>
 
+  .login-img {
+    width: 500px;
+    height: 800px;
+    float: left;
+  }
+
   .login-form {
+    width: auto;
+    padding: 120px 10px;
+    float: left;
+
+  }
+
+  .el-form {
+    padding: 100px 0;
+    border-left: 2px dashed rgba(0,0,0,0.3);
+    margin: 0 20px;
+  }
+
+  .el-form-item {
+    padding: 20px 0;
+
+  }
+
+  .el-input {
     width: 300px;
-    padding: 50px 0 0 50px;
   }
 
 </style>

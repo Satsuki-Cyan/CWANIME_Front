@@ -5,9 +5,9 @@
         <el-row v-if="JSON.stringify(val.contentArr)!='[]'">
           <el-col :span="animeContentSpan" v-for="(contentObj, index) in val.contentArr" :key="contentObj.id">
             <el-card>
-              <img :src="contentObj.imgSrc" class="image" ref="image" />
+              <img :src="contentObj.imgSrc" class="image" ref="image" @click="GoToDetail(contentObj.id)" />
               <div class="content">
-                <span :title="contentObj.title" class="content-setsumei">{{contentObj.title}}</span>
+                <span :title="contentObj.title" class="content-setsumei" @click="GoToDetail(contentObj.id)">{{contentObj.title}}</span>
                 <div class="bottom clearfix">
                   <time class="time">{{ contentObj.createTime }}</time>
                   <!--<el-button type="text" class="button">999</el-button>-->
@@ -86,6 +86,14 @@
           }
         }
         this.weekContent = weekContent;
+      },
+      GoToDetail: function (id) {
+        this.$router.push({
+          path: '/animeDetail',
+          query: {
+            id: id
+          }
+        });
       }
     }
   }
