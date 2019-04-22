@@ -2,11 +2,11 @@
   <div id="componentHeader">
     <el-menu :default-active="defaultActive" active-text-color="#F60" class="el-menu-demo" mode="horizontal"
              @select="handleSelect">
-      <el-menu-item index="0" style="display: none;"></el-menu-item>
-      <el-menu-item index="1">Main</el-menu-item>
-      <el-submenu index="2">
+      <el-menu-item index="login" style="display: none;"></el-menu-item>
+      <el-menu-item index="index">Main</el-menu-item>
+      <el-submenu index="anime">
         <template slot="title"><i class="el-icon-menu"></i>Anime</template>
-        <el-menu-item index="2-1">Apr. 2019</el-menu-item>
+        <el-menu-item index="anime-2019-april">Apr. 2019</el-menu-item>
         <el-menu-item index="2-2">Jan. 2019</el-menu-item>
         <el-menu-item index="2-3">Oct. 2018</el-menu-item>
         <el-submenu index="2-4">
@@ -16,8 +16,8 @@
           <el-menu-item index="2-4-3">333</el-menu-item>
         </el-submenu>
       </el-submenu>
-      <el-menu-item index="3"><i class="el-icon-picture-outline"></i>Image</el-menu-item>
-      <el-menu-item index="4">Game</el-menu-item>
+      <el-menu-item index="image"><i class="el-icon-picture-outline"></i>Image</el-menu-item>
+      <el-menu-item index="game">Game</el-menu-item>
 
       <!-- 全局的搜索框 -->
       <el-menu-item class="header-nav-search">
@@ -44,19 +44,27 @@
     name: "Header",
     data() {
       return {
-        defaultActive: '1',
+        defaultActive: this.COMMON_UTIL.routePath2Key(this.$route.path).replace('-detail',""),
         searchPrefix: '',
         searchContent: ''
       }
     },
+    watch: {
+      $route(to, from) {
+        this.defaultActive = this.COMMON_UTIL.routePath2Key(to.path).replace('-detail',"");
+      }
+    },
+    mounted() {
+
+    },
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
-        let address = "";
-        if(key === "1") {
-          address = "/index"
+        if (key) {
+          // 先对key进行处理再进行路由
+          key = this.COMMON_UTIL.key2RoutePath(key);
+          this.pageGoTo(key);
         }
-        this.pageGoTo(address);
       },
       signInOrUp: function () {
         this.pageGoTo('/login');

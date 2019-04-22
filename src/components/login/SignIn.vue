@@ -13,7 +13,7 @@
           <el-input v-model="loginForm.accountNo"></el-input>
         </el-form-item>
         <el-form-item label="Password">
-          <el-input v-model="loginForm.password"></el-input>
+          <el-input type="password" v-model="loginForm.password"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="login">Sign In !</el-button>

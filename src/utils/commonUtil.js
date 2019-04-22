@@ -28,16 +28,42 @@ let randomNum = (minNum, maxNum, ignoreNum) => {
  */
 let randomNumStr = (minNum, maxNum, ignoreNum, length) => {
   let resNum = randomNum(minNum, maxNum, ignoreNum) + "";
-  let dealNum = length - resNum.length
+  let dealNum = length - resNum.length;
   for (let i = 0; i < dealNum; i++) {
     resNum = "0" + resNum;
   }
   return resNum;
 }
 
+/**
+ * 实现replaceAll
+ */
+let replaceAll = (param, searchValue, replaceValue) => {
+  return param.replace(new RegExp(searchValue, "g"), replaceValue);
+}
+
+/**
+ * 将route路径作为key时，对其进行处理
+ */
+let routePath2Key = (param) => {
+  return replaceAll(param.replace("/", ""), "/", "-");
+}
+
+/**
+ * 将key作为route路径时，对其进行处理
+ */
+let key2RoutePath = (param) => {
+  return "/" + replaceAll(param, "-", "/");
+}
+
+
+
 
 export default {
   sortJSONArray,
   randomNum,
-  randomNumStr
+  randomNumStr,
+  replaceAll,
+  routePath2Key,
+  key2RoutePath
 }

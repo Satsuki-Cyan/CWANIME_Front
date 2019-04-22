@@ -11,36 +11,14 @@
       <el-container>
         <!--　Header-Menu　-->
         <el-header>
-          <component-header></component-header>
+          <component-header ref="componentHeader"></component-header>
         </el-header>
 
         <!-- Anime Content -->
-        <div>
-        <el-container class="main-content">
-          <!-- Anime Title -->
-          <el-header class="area-title">
-            <img src="../../static/index_bangumi.png" />
-          </el-header>
+        <transition name="componentChangeSlide">
+          <router-view></router-view>
+        </transition>
 
-          <el-main>
-            <index-anime-nav></index-anime-nav>
-          </el-main>
-
-        </el-container>
-
-        <!-- Picture Content -->
-        <el-container class="main-content">
-          <!-- Picture Title -->
-          <el-header class="area-title">
-            <img src="../../static/index_picture.png" />
-          </el-header>
-
-          <el-main>
-            Content
-          </el-main>
-
-        </el-container>
-        </div>
         <!-- Footer -->
         <el-footer>{{footer}}</el-footer>
       </el-container>
@@ -56,8 +34,6 @@
 <script>
 
   import ComponentHeader from './Header'
-  import IndexAnimeNav from './anime/IndexAnimeNav'
-  import IndexAnimeContent from './anime/IndexAnimeContent'
   import RightAside from './RightAside'
   import LeftAside from './LeftAside'
 
@@ -68,10 +44,14 @@
         footer: 'ただ、一人のテストだ。。'
       }
     },
+    methods: {
+      switchHeaderActive: function (index) {
+        // 切换Header的active项
+        this.$refs.componentHeader.defaultActive = index;
+      }
+    },
     components: {
       ComponentHeader,
-      IndexAnimeNav,
-      IndexAnimeContent,
       RightAside,
       LeftAside
     }
@@ -125,7 +105,13 @@
     overflow: hidden;
   }
 
+  .componentChangeSlide-enter, .componentChangeSlide-leave, .componentChangeSlide-enter-to, .componentChangeSlide-leave-to {
+    opacity: 0;
+  }
 
+  .componentChangeSlide-enter-active, .componentChangeSlide-leave-active {
+    transition: opacity 500ms;
+  }
 
 
 </style>

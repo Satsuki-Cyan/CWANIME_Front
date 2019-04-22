@@ -1,62 +1,41 @@
 <!-- Sign In / Up -->
 <template>
   <div id="login">
-    <el-container>
 
-      <!-- Left Nav -->
-      <el-aside width="17rem">
-
-      </el-aside>
-
-      <!-- Body -->
-      <el-container>
-        <!--　Header-Menu　-->
-        <el-header>
-          <component-header ref="componentHeader"></component-header>
-        </el-header>
-
-        <!-- Login/Register Content -->
-        <el-container class="main-content">
-          <el-carousel arrow="never" height="800px" indicator-position="none" :autoplay="false" ref="signCarousel">
-            <el-carousel-item key="signIn">
-              <!-- Login Title -->
-              <el-header class="area-title">
-                <img src="../../../static/signIn.png" class="image"/>
-                <el-button type="warning" class="btn-sign-up" @click="modelSwitch(1)" round>
-                  Sign Up
-                  <i class="el-icon-arrow-right"></i>
-                </el-button>
-              </el-header>
-              <!-- Login Content -->
-              <el-main>
-                <sign-in></sign-in>
-              </el-main>
-            </el-carousel-item>
-            <el-carousel-item key="signUp">
-              <!-- Register Title -->
-              <el-header class="area-title">
-                <img src="../../../static/signUp.png" class="image sign-up-img"/>
-                <el-button type="warning" class="btn-sign-in" @click="modelSwitch(0)" round>
-                  <i class="el-icon-arrow-left"></i>
-                  Sign In
-                </el-button>
-              </el-header>
-              <!-- Register Content -->
-              <el-main>
-                <sign-up></sign-up>
-              </el-main>
-            </el-carousel-item>
-          </el-carousel>
-        </el-container>
-
-        <!-- Footer -->
-        <el-footer>{{footer}}</el-footer>
-      </el-container>
-
-      <!-- Right Nav -->
-      <el-aside width="17rem">
-      </el-aside>
+    <!-- Login/Register Content -->
+    <el-container class="main-content">
+      <el-carousel arrow="never" height="800px" indicator-position="none" :autoplay="false" ref="signCarousel">
+        <el-carousel-item key="signIn">
+          <!-- Login Title -->
+          <el-header class="area-title">
+            <img src="../../../static/signIn.png" class="image" />
+            <el-button type="warning" class="btn-sign-up" @click="modelSwitch(1)" round>
+              Sign Up
+              <i class="el-icon-arrow-right"></i>
+            </el-button>
+          </el-header>
+          <!-- Login Content -->
+          <el-main>
+            <sign-in></sign-in>
+          </el-main>
+        </el-carousel-item>
+        <el-carousel-item key="signUp">
+          <!-- Register Title -->
+          <el-header class="area-title">
+            <img src="../../../static/signUp.png" class="image sign-up-img" />
+            <el-button type="warning" class="btn-sign-in" @click="modelSwitch(0)" round>
+              <i class="el-icon-arrow-left"></i>
+              Sign In
+            </el-button>
+          </el-header>
+          <!-- Register Content -->
+          <el-main>
+            <sign-up></sign-up>
+          </el-main>
+        </el-carousel-item>
+      </el-carousel>
     </el-container>
+
   </div>
 </template>
 
@@ -78,10 +57,6 @@
       ComponentHeader,
       SignIn,
       SignUp
-    },
-    mounted() {
-      // 去掉Header的active标志
-      this.$refs.componentHeader.defaultActive = '0';
     },
     methods: {
       modelSwitch: function (model) {

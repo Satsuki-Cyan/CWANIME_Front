@@ -14,21 +14,21 @@
           <el-input v-model="registerForm.accountNo"></el-input>
         </el-form-item>
         <el-form-item label="Password">
-          <el-input v-model="registerForm.password"></el-input>
+          <el-input v-model="registerForm.password" show-password></el-input>
         </el-form-item>
         <el-form-item label="Password Confirm">
-          <el-input v-model="registerForm.passwordConfirm"></el-input>
+          <el-input v-model="registerForm.passwordConfirm" show-password></el-input>
         </el-form-item>
-        <el-form-item label="tel.">
+        <el-form-item label="Tel.">
           <el-input v-model="registerForm.telephone"></el-input>
         </el-form-item>
-        <el-form-item label="sex">
+        <el-form-item label="Sex">
           <el-radio-group v-model="registerForm.sex">
-            <el-radio label="male"></el-radio>
-            <el-radio label="female"></el-radio>
+            <el-radio label="1">Male</el-radio>
+            <el-radio label="2">Female</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="birthday">
+        <el-form-item label="Birthday">
           <el-col :span="14">
             <el-date-picker type="date" placeholder="选择日期" v-model="registerForm.birthday"
                             style="width: 100%;"></el-date-picker>
@@ -50,7 +50,7 @@
           <!--</el-checkbox-group>-->
         <!--</el-form-item>-->
 
-        <el-form-item label="address">
+        <el-form-item label="Address">
           <el-input type="textarea" v-model="registerForm.address"></el-input>
         </el-form-item>
         <el-form-item>
@@ -73,11 +73,15 @@
           password: '',
           passwordConfirm: '',
           telephone: '',
-          sex: '',
+          sex: '1',
           birthday: '',
           address: ''
         }
       }
+    },
+    mounted() {
+      // 禁止Register页面的textarea可调整大小
+      document.getElementsByClassName("el-textarea")[0].childNodes[0].style.resize = 'none';
     },
     methods: {
       register() {
@@ -112,6 +116,11 @@
   }
 
   .el-input {
-    width: 300px;
+
   }
+
+  .el-textarea > textarea {
+
+  }
+
 </style>

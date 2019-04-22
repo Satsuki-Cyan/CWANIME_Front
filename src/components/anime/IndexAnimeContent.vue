@@ -5,9 +5,9 @@
         <el-row v-if="JSON.stringify(val.contentArr)!='[]'">
           <el-col :span="animeContentSpan" v-for="(contentObj, index) in val.contentArr" :key="contentObj.id">
             <el-card>
-              <img :src="contentObj.imgSrc" class="image" ref="image" @click="GoToDetail(contentObj.id)" />
+              <img :src="contentObj.imgSrc" class="image" ref="image" @click="GoToDetail(contentObj)" />
               <div class="content">
-                <span :title="contentObj.title" class="content-setsumei" @click="GoToDetail(contentObj.id)">{{contentObj.title}}</span>
+                <span :title="contentObj.title" class="content-setsumei" @click="GoToDetail(contentObj)">{{contentObj.title}}</span>
                 <div class="bottom clearfix">
                   <time class="time">{{ contentObj.createTime }}</time>
                   <!--<el-button type="text" class="button">999</el-button>-->
@@ -37,13 +37,13 @@
   let movieToOvaContent = {"key" : "movieToOva", "day" : "7", "contentArr" : []};
 
   // req get these data (for today)
-  let testContent = [{"id" : "1","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-    {"id" : "11","imgSrc" : "u=4083493357,2327411348&fm=26&gp=0.jpg","title" : "123123123","createTime":"2019-04-01"},
-    {"id" : "111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-    {"id" : "1111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-    {"id" : "11111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"},
-    {"id" : "1111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01"}
+  let testContent = [{"id" : "1","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
+    {"id" : "11","imgSrc" : "u=4083493357,2327411348&fm=26&gp=0.jpg","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
+    {"id" : "111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
+    {"id" : "1111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
+    {"id" : "11111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
+    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
+    {"id" : "1111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"}
   ];
 
   const today = new Date().getDay();
@@ -87,11 +87,14 @@
         }
         this.weekContent = weekContent;
       },
-      GoToDetail: function (id) {
+      GoToDetail: function (obj) {
+        // 对path进行处理
+        let path = '/anime/' + obj.year + '/' + obj.month + '/detail';
+
         this.$router.push({
-          path: '/animeDetail',
-          query: {
-            id: id
+          path: path,
+          params: {
+            id: obj.id
           }
         });
       }
