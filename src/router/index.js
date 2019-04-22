@@ -52,7 +52,7 @@ export default new Router({
               component: AnimeByPage
             },
             {
-              path: ':year/:month/detail',
+              path: ':year/:month/detail/:id',
               name: 'animeDetailAndPlayer',
               component: AnimeDetail
             }

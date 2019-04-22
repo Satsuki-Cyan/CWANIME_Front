@@ -89,7 +89,7 @@
       },
       GoToDetail: function (obj) {
         // 对path进行处理
-        let path = '/anime/' + obj.year + '/' + obj.month + '/detail';
+        let path = '/anime/' + obj.year + '/' + obj.month + '/detail/' + obj.id;
 
         this.$router.push({
           path: path,

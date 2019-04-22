@@ -11,7 +11,12 @@
         <!--</el-header>-->
         <!-- Login Content -->
         <el-main>
-          asd123
+          <div class="detail-img">
+            <img src="../../../../static/background_0000.jpg" class="image" />
+          </div>
+          <div class="detail-text">
+            // TODO 调整这里的文字说明
+          </div>
         </el-main>
       </el-carousel-item>
       <el-carousel-item key="detailPlayer">
@@ -31,7 +36,9 @@
   export default {
     name: "animeDetail",
     data() {
-      return {}
+      return {
+
+      }
     },
     components: {
       AnimePlayer
@@ -40,7 +47,7 @@
 
     },
     methods: {
-      asd: function () {
+      switchDetailView: function () {
 
       }
     }
@@ -48,26 +55,6 @@
 </script>
 
 <style scoped>
-  .el-header {
-    padding: 0;
-  }
-
-  .el-footer {
-    background-color: #FFF;
-    color: #333;
-    text-align: center;
-    line-height: 3.75rem;
-    opacity: 0.8;
-    margin-top: 50px;
-    border-radius: 20px 20px 0 0;
-  }
-
-  .el-aside {
-    background-color: rgba(255, 255, 255, 0);
-    color: #333;
-    text-align: center;
-    line-height: 12.5rem;
-  }
 
   .el-main {
     background: rgba(255, 255, 255, 0.6);
@@ -76,18 +63,18 @@
     padding: 0 0 20px;
   }
 
-  .area-title {
-    background: rgba(255, 255, 255, 1);
-    height: auto !important;
-    padding-top: 20px;
-    /*border-bottom: 2px dashed #E9EAEB;*/
+  .detail-img {
+    width: 280px;
+    height: 350px;
+    background: rgba(255,255,255, 1);
+    margin: 50px 0 0 50px;
+    border-radius: 10px;
+    overflow: hidden;
   }
 
-  .main-content {
-    margin-top: 50px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    overflow: hidden;
+  .detail-img>.image {
+    width: 280px;
+    height: 350px;
   }
 
 

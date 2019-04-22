@@ -44,14 +44,14 @@
     name: "Header",
     data() {
       return {
-        defaultActive: this.COMMON_UTIL.routePath2Key(this.$route.path).replace('-detail',""),
+        defaultActive: this.processRoute(this.$route.path),
         searchPrefix: '',
         searchContent: ''
       }
     },
     watch: {
       $route(to, from) {
-        this.defaultActive = this.COMMON_UTIL.routePath2Key(to.path).replace('-detail',"");
+        this.defaultActive = this.processRoute(to.path);
       }
     },
     mounted() {
@@ -73,6 +73,11 @@
         this.$router.push({
           path: address
         });
+      },
+      processRoute(routePath) {
+        let key = this.COMMON_UTIL.routePath2Key(routePath).replace('-detail',"");
+        // 移除后面的id
+        return key.substring(0, key.lastIndexOf("-"));
       }
     }
   }
