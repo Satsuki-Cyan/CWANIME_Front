@@ -11,7 +11,7 @@ import AnimeByPage from '@/components/anime/animeDetail/AnimeByPage'
 
 import SystemConstant from '@/constants/systemConstant'
 import CommonUtil from '@/utils/commonUtil'
-// rememeber to modify
+
 
 Vue.use(Router)
 Vue.prototype.SYS_CONST = SystemConstant

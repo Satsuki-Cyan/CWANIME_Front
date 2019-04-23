@@ -6,9 +6,9 @@
         <img src="../../../static/index_bangumi.png"/>
       </el-header>
 
-      <el-main class="">
+      <el-main>
         <transition name="componentChangeSlide">
-          <router-view></router-view>
+          <router-view ref="animeInfoAndPlayer"></router-view>
         </transition>
       </el-main>
 
@@ -17,11 +17,15 @@
         </el-pagination>
       </el-main>
       <el-main class="total-count" v-if="viewType==='2'">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="1 - 12" name="first">1</el-tab-pane>
-          <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-          <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-          <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+        <el-tabs v-model="activeName">
+          <el-tab-pane label="1 - 12" name="first">
+            <el-button class="video-count" @click="switchVideo(1)">1</el-button>
+            <el-button class="video-count" @click="switchVideo(2)">2</el-button>
+            <el-button class="video-count" @click="switchVideo(3)">3</el-button>
+          </el-tab-pane>
+          <el-tab-pane label="13-24" name="second">
+            <el-button class="video-count" @click="switchVideo(13)">13</el-button>
+          </el-tab-pane>
         </el-tabs>
       </el-main>
 
@@ -30,18 +34,35 @@
 </template>
 
 <script>
+
+  // test videoDataSource
+  const videoSource = {
+    "id":"2333",
+    "animeTitle":"于离别之朝，竖起约定之花",
+  };
+
   export default {
     name: "Anime",
     data() {
       return {
         pagerCount: 11,
         viewType: '2',
-        activeName: 'second'
+        activeName: 'first'
       }
     },
     mounted() {
 
+    },
+    methods: {
+      viewDetail: function(id) {
+        // 1. 切换底部(main-footer)内容
+        this.viewType = '2';
 
+      },
+      switchVideo: function (index) {
+        // 1. 切换走馬燈至player
+        this.$refs.animeInfoAndPlayer.switchDetailView(1,index)
+      }
     }
   }
 </script>
@@ -56,7 +77,7 @@
     background: rgba(255, 255, 255, 0.6);
     text-align: center;
     /*line-height: 10rem;*/
-    padding: 0 0 20px;
+    padding: 0;
   }
 
   .area-title {
@@ -75,12 +96,16 @@
 
   .main-footer {
     height: 75px;
-    padding: 20px 0 0 0 ;
+    padding: 20px;
   }
 
   .total-count {
-    padding: 20px;
-    background: rgba(255,255,255, 1);
+    padding: 20px 50px;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .video-count {
+    float: left;
   }
 
   .componentChangeSlide-enter, .componentChangeSlide-leave, .componentChangeSlide-enter-to, .componentChangeSlide-leave-to {
