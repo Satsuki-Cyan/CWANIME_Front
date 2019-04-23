@@ -11,8 +11,9 @@
       </div>
     </el-header>
     <el-main>
-      <video class="video" controls>
-        <source src="" type="video/mp4">
+      <video id="activeVideo" class="video" controls>
+        <!--http://vjs.zencdn.net/v/oceans.mp4-->
+        <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4">
       </video>
     </el-main>
   </div>
@@ -28,6 +29,9 @@
     },
     methods: {
       backToInfo: function () {
+        // stop video
+        document.getElementById("activeVideo").pause();
+        // back to video info
         this.$emit('switchDetailView', '0', this.activeAnimeCount);
       }
     }
@@ -61,9 +65,11 @@
   }
 
   .video {
-    width: 700px;
-    height: 394px;
+    width: 680px;
+    height: 378px;
     float: left;
+    object-fit: cover;
+    outline: 0;
   }
 
 
