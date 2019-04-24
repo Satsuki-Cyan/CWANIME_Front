@@ -36,7 +36,7 @@
 
   let movieToOvaContent = {"key" : "movieToOva", "day" : "7", "contentArr" : []};
 
-  // req get these data (for today)
+  // req get these data (for today) month 记得用util做个转换，曜日也是
   let testContent = [{"id" : "1","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
     {"id" : "11","imgSrc" : "u=4083493357,2327411348&fm=26&gp=0.jpg","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
     {"id" : "111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "april"},
