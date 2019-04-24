@@ -1,6 +1,6 @@
 <template>
   <div id="animeDetail">
-    <el-carousel arrow="never" height="480px" indicator-position="none" :autoplay="false" ref="animeDetailCarousel">
+    <el-carousel arrow="never" height="560px" indicator-position="none" :autoplay="false" ref="animeDetailCarousel">
       <el-carousel-item key="detailInfo">
         <!-- Login Title -->
         <!--<el-header class="area-title">-->
@@ -13,11 +13,12 @@
         <el-main>
           <div class="detail-img">
             <img src="../../../../static/background_0000.jpg" class="image"/>
+            <el-button class="go-play" @click="switchDetailView(1)" round><span v-if="videoIsPlaying==='2'">Start</span><span v-else-if="videoIsPlaying==='1'">Continue</span></el-button>
           </div>
           <div class="detail-text">
             <el-row :gutter="20">
               <el-col :span="24">
-                <div class="grid-content text-main-title">于离别之朝，竖起约定之花</div>
+                <div class="grid-content text-main-title">朝花夕誓：于离别之朝，竖起约定之花</div>
               </el-col>
             </el-row>
             <el-row :gutter="20">
@@ -54,8 +55,6 @@
                   醍醐之国主景光，在某所寺院的大堂中，向12尊鬼神像许愿领土繁荣。作为交换而诞生的景光之后嗣，身体各处都有所欠缺，被视作不祥之子而抛弃到河川之中。时光流逝，鬼神实现了与景光的约定，国家迎来了平安。这样的某天，名为“多罗罗”的年幼盗贼，与某个男人相遇。
                   那是鬼，还是人——
                   两臂装有刀剑，全身皆为人造的男人“百鬼丸”，用他那无神光的双瞳紧紧盯着袭来的妖魔。
-                  时为战国。
-
                 </div>
               </el-col>
             </el-row>
@@ -79,7 +78,9 @@
   export default {
     name: "animeDetail",
     data() {
-      return {}
+      return {
+        videoIsPlaying: '2'
+      }
     },
     components: {
       AnimePlayer
@@ -91,7 +92,13 @@
       switchDetailView: function (activeView, index) {
         console.log("success switchDetailView! index: ", index)
         this.$refs.animeDetailCarousel.setActiveItem(activeView);
-        this.$refs.animePlayer.activeAnimeCount = index;
+        if(index) {
+          this.$refs.animePlayer.activeAnimeCount = index;
+        }
+        if(activeView === '0') {
+          this.videoIsPlaying = '1';
+        }
+
       }
     }
   }
@@ -108,18 +115,26 @@
 
   .detail-img {
     width: 280px;
-    height: 392px;
+    /*height: 392px;*/
     /*background: rgba(255,255,255, 1);*/
     margin-left: 50px;
     border-radius: 10px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     float: left;
+  }
+
+  .detail-img > .el-button {
+    width: 200px;
+    font-size: 18px;
+    background: #FFB71C;
+    color: #FFF;
   }
 
   .detail-img > .image {
     width: 280px;
     height: 392px;
     border-radius: 10px;
+    float: left;
   }
 
   .detail-text {

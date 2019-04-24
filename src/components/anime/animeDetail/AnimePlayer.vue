@@ -32,7 +32,7 @@
         // stop video
         document.getElementById("activeVideo").pause();
         // back to video info
-        this.$emit('switchDetailView', '0', this.activeAnimeCount);
+        this.$emit('switchDetailView', '0');
       }
     }
   }
@@ -61,7 +61,7 @@
   }
 
   .el-main {
-    padding: 0 30px;
+    padding: 0 30px 55px;
   }
 
   .video {

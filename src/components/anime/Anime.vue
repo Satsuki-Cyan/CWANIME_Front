@@ -61,7 +61,7 @@
       },
       switchVideo: function (index) {
         // 1. 切换走馬燈至player
-        this.$refs.animeInfoAndPlayer.switchDetailView(1,index)
+        this.$refs.animeInfoAndPlayer.switchDetailView(1, index)
       }
     }
   }
@@ -76,7 +76,6 @@
   .el-main {
     background: rgba(255, 255, 255, 0.6);
     text-align: center;
-    /*line-height: 10rem;*/
     padding: 0;
   }
 
@@ -84,7 +83,6 @@
     background: rgba(255, 255, 255, 1);
     height: auto !important;
     padding-top: 20px;
-    /*border-bottom: 2px dashed #E9EAEB;*/
   }
 
   .main-content {
