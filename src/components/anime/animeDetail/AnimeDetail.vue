@@ -13,7 +13,7 @@
         <el-main>
           <div class="detail-img">
             <img src="../../../../static/background_0000.jpg" class="image"/>
-            <el-button class="go-play" @click="switchDetailView(1)" round><span v-if="videoIsPlaying==='2'">Start</span><span v-else-if="videoIsPlaying==='1'">Continue</span></el-button>
+            <el-button type="info" v-if="bangumiSource.length != 0" @click="switchDetailView(1)" round><span v-if="videoIsPlaying==='2'">Start</span><span v-else-if="videoIsPlaying==='1'">Continue</span></el-button>
           </div>
           <div class="detail-text">
             <el-row :gutter="20">
@@ -79,6 +79,9 @@
 
   export default {
     name: "animeDetail",
+    props:[
+      'bangumiSource'
+    ],
     data() {
       return {
         videoIsPlaying: '2'
@@ -88,19 +91,23 @@
       AnimePlayer
     },
     mounted() {
-
+      if(this.bangumiSource.length != 0) {
+        this.$refs.animePlayer.bangumiDetail = this.bangumiSource[0];
+      }
     },
     methods: {
       switchDetailView: function (activeView, index) {
         console.log("success switchDetailView! index: ", index)
+        // 切换至播放器view
         this.$refs.animeDetailCarousel.setActiveItem(activeView);
         if(index) {
-          this.$refs.animePlayer.activeAnimeCount = index;
+          this.$refs.animePlayer.bangumiDetail = this.bangumiSource[index - 1];
+          this.$refs.animePlayer.videoPlay();
         }
         if(activeView === '0') {
+          // 切换start按钮的文字变为"continue"
           this.videoIsPlaying = '1';
         }
-
       }
     }
   }
@@ -113,6 +120,7 @@
     text-align: center;
     line-height: 10rem;
     padding: 50px 0 20px;
+    min-height: 560px;
   }
 
   .detail-img {
@@ -130,6 +138,11 @@
     font-size: 18px;
     background: #FFB71C;
     color: #FFF;
+    border: 0;
+  }
+
+  .detail-img > .el-button:hover {
+    background: #F2C25B;
   }
 
   .detail-img > .image {

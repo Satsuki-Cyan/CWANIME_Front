@@ -17,7 +17,7 @@
 
       <el-main>
         <transition name="componentChangeSlide">
-          <router-view ref="animeInfoAndPlayer"></router-view>
+          <router-view :bangumi-source="videoSource.bangumiBOList" ref="animeInfoAndPlayer"></router-view>
         </transition>
       </el-main>
 
@@ -26,13 +26,15 @@
         </el-pagination>
       </el-main>
       <el-main class="total-count" v-if="viewType==='2'">
-        <el-tabs v-model="activeName">
-          <el-tab-pane  v-for="(episodesSpacing, index) in episodesList" :label="episodesSpacing.label" :name="'episodesSpacing_' + (index + 1)">
+        <el-tabs v-model="activeName" v-if="episodesList.length!=0">
+          <el-tab-pane v-for="(episodesSpacing, index) in episodesList" :label="episodesSpacing.label" :name="'episodesSpacing_' + (index + 1)">
             <el-button v-for="(episode, i) in episodesSpacing.counts" class="video-count" @click="switchVideo(episode.episodes)">{{episode.episodes}}</el-button>
           </el-tab-pane>
         </el-tabs>
         <!-- 如果没有查到集数，要显示“暂无资源哦~” -->
-
+        <div class="empty-episodes" v-else>
+          暂无资源哦~
+        </div>
       </el-main>
 
     </el-container>
@@ -50,8 +52,8 @@
     "startDate": "木曜日",
     "releaseDate": "2019-04-01",
     "bangumiBOList": [
-      {"id":"23333", "episodes": "1","title":"The 1st Episode.","videoPath":"","videoName":"big_buck_bunny.mp4"},
-      {"id":"23334", "episodes": "2","title":"The 2nd Episode.","videoPath":"","videoName":"big_buck_bunny.mp4"},
+      {"id":"23333", "episodes": "1","title":"The 1st Episode.","videoPath":"http://clips.vorwaerts-gmbh.de/","videoName":"big_buck_bunny.mp4"},
+      {"id":"23334", "episodes": "2","title":"The 2nd Episode.","videoPath":"https://media.w3.org/2010/05/sintel/","videoName":"trailer.mp4"},
       {"id":"23335", "episodes": "3","title":"The 3rd Episode.","videoPath":"","videoName":"big_buck_bunny.mp4"},
       {"id":"23336", "episodes": "4","title":"The 4th Episode.","videoPath":"","videoName":"big_buck_bunny.mp4"},
       {"id":"23337", "episodes": "5","title":"The 5th Episode.","videoPath":"","videoName":"big_buck_bunny.mp4"},
@@ -94,18 +96,20 @@
       if(episodesList.length == 0) {
         // 1. 获得一共多少个区间（向下取整）
         let episodesSpacingCount = Math.floor(videoSource.bangumiBOList.length/this.episodesSplitNum);
-        for(let i=1;i<=episodesSpacingCount;i++) {
+        if(episodesSpacingCount > 0) {
+          for(let i=1;i<=episodesSpacingCount;i++) {
+            let episodesObj = {};
+            episodesObj.label = i + " - " + i * this.episodesSplitNum;
+            episodesObj.counts = videoSource.bangumiBOList.slice((i - 1) * this.episodesSplitNum, i * this.episodesSplitNum);
+            episodesList.push(episodesObj);
+          }
+          // 2. 将剩余不足基数的部分作为一个区间注入
+          let lastEpisodesSpacingCount = Math.floor(videoSource.bangumiBOList.length%this.episodesSplitNum);
           let episodesObj = {};
-          episodesObj.label = i + " - " + i * this.episodesSplitNum;
-          episodesObj.counts = videoSource.bangumiBOList.slice((i - 1) * this.episodesSplitNum, i * this.episodesSplitNum);
+          episodesObj.label = videoSource.bangumiBOList.length - lastEpisodesSpacingCount + 1 + " - " + videoSource.bangumiBOList.length;
+          episodesObj.counts = videoSource.bangumiBOList.slice(-lastEpisodesSpacingCount);
           episodesList.push(episodesObj);
         }
-        // 2. 将剩余不足基数的部分作为一个区间注入
-        let lastEpisodesSpacingCount = Math.floor(videoSource.bangumiBOList.length%this.episodesSplitNum);
-        let episodesObj = {};
-        episodesObj.label = videoSource.bangumiBOList.length - lastEpisodesSpacingCount + 1 + " - " + videoSource.bangumiBOList.length;
-        episodesObj.counts = videoSource.bangumiBOList.slice(-lastEpisodesSpacingCount);
-        episodesList.push(episodesObj);
       }
     },
     methods: {
@@ -167,6 +171,13 @@
 
   .video-count {
     float: left;
+  }
+
+  .empty-episodes {
+    border-top: 1px solid #CCC;
+    padding-top: 20px;
+    font-size: 18px;
+    color: #F60;
   }
 
   .componentChangeSlide-enter, .componentChangeSlide-leave, .componentChangeSlide-enter-to, .componentChangeSlide-leave-to {

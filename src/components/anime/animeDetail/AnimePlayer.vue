@@ -7,13 +7,14 @@
         Back To
       </el-button>
       <div class="player-info">
-        <span>第 {{activeAnimeCount}} 话</span>
+        <span class="episodes-count">第 {{bangumiDetail.episodes}} 话</span>
+        <span class="episodes-title">{{bangumiDetail.title}}</span>
       </div>
     </el-header>
     <el-main>
       <video id="activeVideo" class="video" controls>
         <!--http://vjs.zencdn.net/v/oceans.mp4-->
-        <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4">
+        <source :src="bangumiDetail.videoPath + bangumiDetail.videoName" type="video/mp4">
       </video>
     </el-main>
   </div>
@@ -24,7 +25,7 @@
     name: "AnimePlayer",
     data() {
       return {
-        activeAnimeCount: '1'
+        bangumiDetail: ''
       }
     },
     methods: {
@@ -33,6 +34,10 @@
         document.getElementById("activeVideo").pause();
         // back to video info
         this.$emit('switchDetailView', '0');
+      },
+      videoPlay: function () {
+        // 切换视频源时需要触发一次play才能播放
+        document.getElementById("activeVideo").play();
       }
     }
   }
@@ -60,17 +65,28 @@
     font-size: 20px;
   }
 
+  .episodes-count {
+
+  }
+
+  .episodes-title {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
   .el-main {
     padding: 0 30px 55px;
   }
 
   .video {
     width: 680px;
-    height: 378px;
+    height: 381px;
     float: left;
     object-fit: cover;
     outline: 0;
   }
+
+
 
 
 </style>
