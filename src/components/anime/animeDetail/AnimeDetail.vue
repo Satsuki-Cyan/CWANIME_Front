@@ -75,6 +75,8 @@
 
   import AnimePlayer from './AnimePlayer'
 
+
+
   export default {
     name: "animeDetail",
     data() {
