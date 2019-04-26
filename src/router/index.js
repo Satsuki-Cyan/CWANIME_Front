@@ -43,11 +43,11 @@ export default new Router({
           component: Login
         },
         {
-          path: 'anime',
+          path: 'bangumi',
           component: Anime,
           children: [
             {
-              path: ':year/:month',
+              path: ':year/:month/:page',
               name: 'animeByPage',
               component: AnimeByPage
             },

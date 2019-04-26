@@ -4,9 +4,9 @@
              @select="handleSelect">
       <el-menu-item index="login" style="display: none;"></el-menu-item>
       <el-menu-item index="index">Main</el-menu-item>
-      <el-submenu index="anime">
-        <template slot="title"><i class="el-icon-menu"></i>Anime</template>
-        <el-menu-item index="anime-2019-april">Apr. 2019</el-menu-item>
+      <el-submenu index="bangumi">
+        <template slot="title"><i class="el-icon-menu"></i>Bangumi</template>
+        <el-menu-item index="bangumi-2019-April">Apr. 2019</el-menu-item>
         <el-menu-item index="2-2">Jan. 2019</el-menu-item>
         <el-menu-item index="2-3">Oct. 2018</el-menu-item>
         <el-submenu index="2-4">
@@ -23,7 +23,7 @@
       <el-menu-item class="header-nav-search">
         <el-input placeholder="请输入内容" v-model="searchContent" class="input-with-select" size="small">
           <el-select v-model="searchPrefix" slot="prepend" placeholder="请选择">
-            <el-option label="Anime" value="1"></el-option>
+            <el-option label="Bangumi" value="1"></el-option>
             <el-option label="Image" value="2"></el-option>
             <el-option label="Game" value="3"></el-option>
           </el-select>
@@ -44,6 +44,7 @@
     name: "Header",
     data() {
       return {
+        // header-nav高亮项
         defaultActive: this.processRoute(this.$route.path),
         searchPrefix: '',
         searchContent: ''

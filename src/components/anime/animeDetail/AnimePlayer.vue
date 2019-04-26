@@ -25,7 +25,11 @@
     name: "AnimePlayer",
     data() {
       return {
-        bangumiDetail: ''
+        // 当前选中的集数下标，默认0
+        bangumiDetail: {
+          "episodes": "1",
+          "title": "123"
+        }
       }
     },
     methods: {
@@ -37,7 +41,7 @@
       },
       videoPlay: function () {
         // 切换视频源时需要触发一次play才能播放
-        document.getElementById("activeVideo").play();
+        // document.getElementById("activeVideo").play();
       }
     }
   }
