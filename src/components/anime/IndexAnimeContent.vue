@@ -89,7 +89,7 @@
       },
       GoToDetail: function (obj) {
         // 对path进行处理
-        let path = '/bangumi/' + obj.year + '/' + this.COMMON_UTIL.convertNum2Month(+obj.month) + '/detail/' + obj.id;
+        let path = '/bangumi/' + obj.year + '/' + this.COMMON_UTIL.convertNum2Month(obj.month) + '/detail/' + obj.id;
 
         this.$router.push({
           path: path,

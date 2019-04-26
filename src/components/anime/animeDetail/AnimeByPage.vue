@@ -10,9 +10,23 @@
       </el-breadcrumb>
     </el-header>
 
+    <!-- 需要渲染的bangumi分页集合 -->
     <el-main>
-      <!-- 查询出的bangumi集合 -->
-
+      <el-row v-if="bangumiList.length !== 0">
+        <el-col :span="bangumiContentSpan" v-for="(contentObj, index) in bangumiList" :key="contentObj.id">
+          <el-card>
+            <img :src="contentObj.imgSrc" class="image" ref="image" @click="GoToDetail(contentObj)" />
+            <div class="content">
+              <span :title="contentObj.title" class="content-setsumei" @click="GoToDetail(contentObj)">{{contentObj.title}}</span>
+              <div class="bottom clearfix">
+                <time class="time">{{ contentObj.createTime }}</time>
+                <!--<el-button type="text" class="button">999</el-button>-->
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
+      <img src="../../../../static/contentEmptyDefault.png" v-else />
     </el-main>
 
     <el-main class="main-footer">
@@ -31,23 +45,18 @@
     {"id" : "111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
     {"id" : "1111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
     {"id" : "11111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
-    {"id" : "1111111","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"}
+    {"id" : "111112","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111113","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111114","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111115","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111116","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111117","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111118","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111119","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111120","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111121","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"},
+    {"id" : "111122","imgSrc" : "../../../static/logo.png","title" : "123123123","createTime":"2019-04-01","year":"2019","month": "4"}
   ];
-
-  const breadcrumb = [
-    {"title":"Index","path":"/index"},
-    {"title":"Bangumi","path":"/bangumi"},
-  ]
 
   export default {
     name: "AnimeByPage",
@@ -57,8 +66,32 @@
         page: 1,
         // 展示最大分页按钮数量
         pagerCount: 11,
-        // 面包屑
-        breadcrumb: ''
+        // 每一个渲染的卡片元素的span
+        bangumiContentSpan: 6,
+        // 当前查询出的分页集合
+        bangumiList: ''
+      }
+    },
+    mounted() {
+      // TODO 根据条件，查询bangumi分页集合，考虑下根据路由变化来请求分页数据，请求完直接处理imgSrc
+      // test写法，真正请求做法参照上面TODO来做
+      if(this.bangumiList.length === 0) {
+        // 处理文件src路径的前缀
+        this.SYS_CONST.addSystemResourcePrefix(testContent, "imgSrc");
+        this.bangumiList = testContent;
+      }
+    },
+    methods: {
+      GoToDetail: function (obj) {
+        // 对path进行处理
+        let path = '/bangumi/' + obj.year + '/' + this.COMMON_UTIL.convertNum2Month(obj.month) + '/detail/' + obj.id;
+
+        this.$router.push({
+          path: path,
+          params: {
+            id: obj.id
+          }
+        });
       }
     }
   }
@@ -75,12 +108,6 @@
     padding: 0;
   }
 
-  .area-title {
-    background: rgba(255, 255, 255, 1);
-    height: auto !important;
-    padding-top: 20px;
-  }
-
   .breadcrumb {
     background: rgba(255, 255, 255, 1);
     padding: 20px 0 0 30px;
@@ -90,32 +117,59 @@
 
   }
 
-  .main-content {
-    margin-top: 50px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    overflow: hidden;
-  }
-
   .main-footer {
     background: rgba(255, 255, 255, 1);
     padding: 25px;
   }
 
-  .total-count {
-    padding: 20px 50px;
-    background: rgba(255, 255, 255, 1);
+  .el-col {
+    width: 15.9375rem;
+    border-radius: 0.625rem;
+    margin: 0 0.3125rem;
+    padding: 0.3125rem;
   }
 
-  .video-count {
-    float: left;
+  .content {
+    margin-top: -3.75rem;
+    position: relative;
   }
 
-  .empty-episodes {
-    border-top: 1px solid #CCC;
-    padding-top: 20px;
-    font-size: 18px;
-    color: #F60;
+  .content-setsumei {
+    width: auto;
+    display: block;
+    line-height: 1.875rem;
+    cursor: pointer;
+  }
+
+  .time {
+    font-size: 0.8125rem;
+    color: #999;
+  }
+
+  .bottom {
+    line-height: 0.75rem;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 12.5rem;
+    height: 12.5rem;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
   }
 
   .componentChangeSlide-enter, .componentChangeSlide-leave, .componentChangeSlide-enter-to, .componentChangeSlide-leave-to {

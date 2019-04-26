@@ -60,6 +60,10 @@ let key2RoutePath = (param) => {
  * 根据数字返回对应的月份
  */
 let convertNum2Month = (num) => {
+  // 如果传入的num是string类型，则转为number型
+  if(typeof num === 'string') {
+    num = +num;
+  }
   let month = '';
   switch (num) {
     case 1:

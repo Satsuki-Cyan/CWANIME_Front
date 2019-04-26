@@ -6,25 +6,25 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <!--<el-breadcrumb-item v-for="(item, i) in breadcrumb" :key="item.title" :to="{ path: item.path }">{{item.title}}</el-breadcrumb-item>-->
         <el-breadcrumb-item :to="{ path: '/index' }">Index</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/bangumi/' }">Bangumi</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: breadcrumb }">Bangumi</el-breadcrumb-item>
         <el-breadcrumb-item v-if="videoSource.length!==0">{{videoSource.animeTitle}}</el-breadcrumb-item>
       </el-breadcrumb>
     </el-header>
 
-    <el-main>
+    <el-main class="anime-detail-carousel">
       <!-- Anime Detail Carousel -->
       <el-carousel arrow="never" height="560px" indicator-position="none" :autoplay="false" ref="animeDetailCarousel">
         <el-carousel-item key="detailInfo">
           <!-- Anime Detail Info -->
           <el-main>
             <div class="detail-img">
-              <img src="../../../../static/background_0000.jpg" class="image"/>
+              <img :src="videoSource.imgSrc" class="image"/>
               <el-button type="info" v-if="videoSource.length != 0" @click="switchDetailView(1)" round><span v-if="videoIsPlaying==='2'">Start</span><span v-else-if="videoIsPlaying==='1'">Continue</span></el-button>
             </div>
             <div class="detail-text">
               <el-row :gutter="20">
                 <el-col :span="24">
-                  <div class="grid-content text-main-title">朝花夕誓：于离别之朝，竖起约定之花</div>
+                  <div class="grid-content text-main-title">{{videoSource.animeTitle}}</div>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
@@ -32,7 +32,7 @@
                   <div class="grid-content text-title">StartDate：</div>
                 </el-col>
                 <el-col :span="19">
-                  <div class="grid-content text-date-value">2019.04.01</div>
+                  <div class="grid-content text-date-value">{{videoSource.startDate}}</div>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
@@ -40,7 +40,7 @@
                   <div class="grid-content text-title">ReleaseDate：</div>
                 </el-col>
                 <el-col :span="19">
-                  <div class="grid-content text-date-value">火曜日</div>
+                  <div class="grid-content text-date-value">{{videoSource.releaseDate}}</div>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
@@ -48,7 +48,7 @@
                   <div class="grid-content text-title">Language：</div>
                 </el-col>
                 <el-col :span="19">
-                  <div class="grid-content text-date-value">日本語</div>
+                  <div class="grid-content text-date-value">{{videoSource.language}}</div>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
@@ -57,10 +57,7 @@
                 </el-col>
                 <el-col :span="19">
                   <div class="grid-content text-profile-value">
-                    时为战国。
-                    醍醐之国主景光，在某所寺院的大堂中，向12尊鬼神像许愿领土繁荣。作为交换而诞生的景光之后嗣，身体各处都有所欠缺，被视作不祥之子而抛弃到河川之中。时光流逝，鬼神实现了与景光的约定，国家迎来了平安。这样的某天，名为“多罗罗”的年幼盗贼，与某个男人相遇。
-                    那是鬼，还是人——
-                    两臂装有刀剑，全身皆为人造的男人“百鬼丸”，用他那无神光的双瞳紧紧盯着袭来的妖魔。
+                    {{videoSource.profile}}
                   </div>
                 </el-col>
               </el-row>
@@ -98,13 +95,14 @@
   // test videoDataSource
   const videoSource = {
     "id": "2333",
-    "animeTitle": "于离别之朝，竖起约定之花",
+    "animeTitle": "朝花夕誓：于离别之朝，竖起约定之花",
     "imgSrc": "../../../../static/background_0000.jpg",
     "language": "日本語",
-    "startDate": "木曜日",
-    "releaseDate": "2019-04-01",
+    "releaseDate": "木曜日",
+    "startDate": "2019.04.01",
     "year": "2019",
     "month": "4",
+    "profile":"时为战国。醍醐之国主景光，在某所寺院的大堂中，向12尊鬼神像许愿领土繁荣。作为交换而诞生的景光之后嗣，身体各处都有所欠缺，被视作不祥之子而抛弃到河川之中。时光流逝，鬼神实现了与景光的约定，国家迎来了平安。这样的某天，名为“多罗罗”的年幼盗贼，与某个男人相遇。那是鬼，还是人——两臂装有刀剑，全身皆为人造的男人“百鬼丸”，用他那无神光的双瞳紧紧盯着袭来的妖魔。",
     "bangumiBOList": [
       {"id":"23333", "episodes": "1","title":"The 1st Episode.","videoPath":"http://clips.vorwaerts-gmbh.de/","videoName":"big_buck_bunny.mp4"},
       {"id":"23334", "episodes": "2","title":"The 2nd Episode.","videoPath":"https://media.w3.org/2010/05/sintel/","videoName":"trailer.mp4"},
@@ -153,7 +151,7 @@
         videoSource: '',
         // 分好区间的集数
         episodesList: episodesList,
-        // 面包屑
+        // 面包屑bangumi
         breadcrumb: ''
       }
     },
@@ -161,14 +159,27 @@
       AnimePlayer
     },
     created() {
-      console.log(videoSource.bangumiBOList)
-      // this.$refs.animePlayer.bangumiDetail = videoSource.bangumiBOList[0];
+
     },
     mounted() {
+      // TODO 这里需要根据id去查询一波番剧参数
+
+      // this.videoSource不存在时才进行查询并为其赋值
       if(this.videoSource === '') {
         this.videoSource = videoSource;
+        // 默认给player赋值为查询出的视频集合中的第1集
         this.$refs.animePlayer.bangumiDetail = this.videoSource.bangumiBOList[0];
       }
+
+      // 给breadcrumb（bangumi）赋值
+      let month = this.COMMON_UTIL.convertNum2Month(this.videoSource.month);
+      // 判断在路由参数中是否能获得page，不能则默认为1
+      let page = 1;
+      console.log("route.params.page: ",this.$route.params.page)
+      if(this.$route.params.page) {
+        page = this.$route.params.page;
+      }
+      this.breadcrumb = `/bangumi/${this.videoSource.year}/${month}/${page}`;
 
       // 划分集数的区间
       if (episodesList.length === 0) {
@@ -196,9 +207,8 @@
         // 切换至播放器view
         this.$refs.animeDetailCarousel.setActiveItem(activeView);
         if(index) {
+          // 修改player组件里的渲染参数
           this.$refs.animePlayer.bangumiDetail = this.videoSource.bangumiBOList[index - 1];
-          console.log(13123)
-          // this.$refs.animePlayer.activeIndex = index - 1;
           this.$refs.animePlayer.videoPlay();
         }
         if(activeView === '0') {
@@ -214,6 +224,8 @@
 
   .el-main {
     background: rgba(255, 255, 255, 1);
+  }
+  .anime-detail-carousel {
     text-align: center;
     line-height: 10rem;
     padding: 20px 0 20px;
@@ -311,7 +323,7 @@
   }
 
   .total-count {
-    padding: 20px 50px;
+    padding: 0px 50px 20px;
     background: rgba(255, 255, 255, 1);
   }
 

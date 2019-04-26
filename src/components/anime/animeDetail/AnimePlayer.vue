@@ -12,24 +12,20 @@
       </div>
     </el-header>
     <el-main>
-      <video id="activeVideo" class="video" controls>
-        <!--http://vjs.zencdn.net/v/oceans.mp4-->
-        <source :src="bangumiDetail.videoPath + bangumiDetail.videoName" type="video/mp4">
+      <video id="activeVideo" class="video" ref="videoSrc" controls>
+        <source ref="videoSrc" type="video/mp4">
       </video>
     </el-main>
   </div>
 </template>
 
 <script>
+
   export default {
     name: "AnimePlayer",
     data() {
       return {
-        // 当前选中的集数下标，默认0
-        bangumiDetail: {
-          "episodes": "1",
-          "title": "123"
-        }
+        bangumiDetail: ''
       }
     },
     methods: {
@@ -40,8 +36,8 @@
         this.$emit('switchDetailView', '0');
       },
       videoPlay: function () {
-        // 切换视频源时需要触发一次play才能播放
-        // document.getElementById("activeVideo").play();
+        // 切换视频源（这里是vue专属做法，原生JS得直接替换video标签下的<source>标签才会重新去请求视频，否则仅仅只是替换src的值而已）
+        this.$refs.videoSrc.src = this.bangumiDetail.videoPath + this.bangumiDetail.videoName;
       }
     }
   }
