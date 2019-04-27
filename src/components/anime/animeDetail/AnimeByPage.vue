@@ -30,7 +30,7 @@
     </el-main>
 
     <el-main class="main-footer">
-      <el-pagination background layout="prev, pager, next" :pager-count="pagerCount" :total="1000">
+      <el-pagination @current-change="pageChange"  :current-page="page" :pager-count="pagerCount" :total="pageTotal" background layout="prev, pager, next">
       </el-pagination>
     </el-main>
 
@@ -64,12 +64,18 @@
       return {
         // 分页数，默认第1页
         page: 1,
+        // 每页最大显示数量
+        pageSize: 16,
         // 展示最大分页按钮数量
         pagerCount: 11,
+        // 分页总数
+        pageTotal: 1000,
         // 每一个渲染的卡片元素的span
         bangumiContentSpan: 6,
         // 当前查询出的分页集合
-        bangumiList: ''
+        bangumiList: '',
+        // bangumi-breadcrumb
+        bangumiBreadcrumb: ``
       }
     },
     mounted() {
@@ -83,15 +89,27 @@
     },
     methods: {
       GoToDetail: function (obj) {
-        // 对path进行处理
+        // 对path进行处理并路由
         let path = '/bangumi/' + obj.year + '/' + this.COMMON_UTIL.convertNum2Month(obj.month) + '/detail/' + obj.id;
-
         this.$router.push({
           path: path,
           params: {
             id: obj.id
           }
         });
+      },
+      pageChange: function (val) {
+        console.log(val)
+        this.page = val;
+
+        // 查询条件...
+        let params = '';
+
+        this.reqBangumiByPage(params,this.page,this.pageSize);
+      },
+      reqBangumiByPage: function (params, page, pageSize) {
+        // TODO 发起数据请求
+
       }
     }
   }
@@ -122,6 +140,10 @@
     padding: 25px;
   }
 
+  .el-row {
+    padding: 20px 25px;
+  }
+
   .el-col {
     width: 15.9375rem;
     border-radius: 0.625rem;
@@ -130,8 +152,7 @@
   }
 
   .content {
-    margin-top: -3.75rem;
-    position: relative;
+
   }
 
   .content-setsumei {

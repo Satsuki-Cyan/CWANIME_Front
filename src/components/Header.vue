@@ -6,7 +6,7 @@
       <el-menu-item index="index">Main</el-menu-item>
       <el-submenu index="bangumi">
         <template slot="title"><i class="el-icon-menu"></i>Bangumi</template>
-        <el-menu-item index="bangumi-2019-April">Apr. 2019</el-menu-item>
+        <el-menu-item index="bangumi-2019-April-1">Apr. 2019</el-menu-item>
         <el-menu-item index="2-2">Jan. 2019</el-menu-item>
         <el-menu-item index="2-3">Oct. 2018</el-menu-item>
         <el-submenu index="2-4">

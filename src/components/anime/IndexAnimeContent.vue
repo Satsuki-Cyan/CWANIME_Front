@@ -108,6 +108,10 @@
     padding: 1.25rem;
   }
 
+  .el-row {
+    padding: 0 6px;
+  }
+
   .el-col {
     width: 15.9375rem;
     border-radius: 0.625rem;
@@ -117,7 +121,6 @@
 
   .content {
     margin-top: -3.75rem;
-    position: relative;
   }
 
   .content-setsumei {
