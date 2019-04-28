@@ -51,6 +51,10 @@ export default new Router({
               component: AnimeByPage
             },
             {
+              path: ':year/:month',
+              redirect: ':year/:month/1',
+            },
+            {
               path: ':year/:month/detail/:id',
               name: 'animeDetailAndPlayer',
               component: AnimeDetail
