@@ -21,7 +21,8 @@
 <style>
   body {
     margin: 0;
-    background: url("../static/background_0000.jpg") no-repeat fixed;
+  /*url("../static/background_0000.jpg")*/
+    background: no-repeat fixed;
     background-size: cover;
     transition: all 1s;
   }

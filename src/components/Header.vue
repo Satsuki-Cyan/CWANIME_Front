@@ -35,12 +35,14 @@
       </el-menu-item>
 
       <!-- 成功后要渲染出头像及消息一类的选项 -->
-      <el-button v-if="isSign==='1'" class="header-nav-sign-in" size="medium" @click="signInOrUp" round>Sign In / Up</el-button>
+      <el-button v-if="isSign==='2'" class="header-nav-sign-in" size="medium" @click="signInOrUp" round>Sign In / Up</el-button>
       <!-- 登录成功后的样子 -->
-      <div class="user-info">
-
-
-      </div>
+      <el-menu-item v-if="isSign==='1'">
+        <div class="user-info">
+          <img :src="testUserImg" class="user-img" />
+          <span class="user-name">Satsuki.Cyan</span>
+        </div>
+      </el-menu-item>
     </el-menu>
 
   </div>
@@ -54,9 +56,10 @@
         // header-nav高亮项
         defaultActive: this.processRoute(this.$route.path),
         // 用户是否已经登录（1.是；2.否）
-        isSign: '2',
+        isSign: '1',
         searchPrefix: '',
-        searchContent: ''
+        searchContent: '',
+        testUserImg: '../../static/test_user_img.jpg'
       }
     },
     watch: {
@@ -133,6 +136,19 @@
 
   .input-with-select .el-input-group__prepend {
     background-color: #fff;
+  }
+
+  .user-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background: #CCC;
+    border: 0;
+    margin-left: 20px;
+  }
+
+  .user-name {
+    margin-left: 20px;
   }
 
 
