@@ -144,7 +144,7 @@
     border-radius: 100%;
     background: #CCC;
     border: 0;
-    margin-left: 20px;
+    margin-left: 10px;
   }
 
   .user-name {
