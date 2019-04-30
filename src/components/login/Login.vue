@@ -16,7 +16,7 @@
           </el-header>
           <!-- Login Content -->
           <el-main>
-            <sign-in></sign-in>
+            <sign-in @goBackRoute="goBackRoute"></sign-in>
           </el-main>
         </el-carousel-item>
         <el-carousel-item key="signUp">
@@ -45,13 +45,23 @@
   import SignIn from './SignIn'
   import SignUp from './SignUp'
 
+  // 定义上一个routePath，beforeRouteEnter还未初始化组件结束，不能直接给data赋值
+  let routeFrom = '/index';
 
   export default {
     name: 'Login',
     data() {
       return {
-        footer: 'ただ、一人のテストだ。。'
+        routeFrom: routeFrom,
       }
+    },
+    beforeRouteEnter(to, from, next) {
+      routeFrom = from.fullPath;
+      next();
+    },
+    mounted () {
+      // 初始化组件完成后，为data中的routeFrom赋值
+      this.routeFrom = routeFrom;
     },
     components: {
       ComponentHeader,
@@ -62,6 +72,11 @@
       modelSwitch: function (model) {
         // 1. 走馬燈スイッチ
         this.$refs.signCarousel.setActiveItem(model);
+      },
+      goBackRoute: function () {
+        this.$router.push({
+          path: this.routeFrom
+        });
       }
     }
   }

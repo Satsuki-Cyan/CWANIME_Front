@@ -37,14 +37,18 @@
       <!-- 成功后要渲染出头像及消息一类的选项 -->
       <el-button v-if="isSign==='2'" class="header-nav-sign-in" size="medium" @click="signInOrUp" round>Sign In / Up</el-button>
       <!-- 登录成功后的样子 -->
-      <el-menu-item v-if="isSign==='1'">
-        <div class="user-info">
-          <img :src="testUserImg" class="user-img" />
-          <span class="user-name">Satsuki.Cyan</span>
-        </div>
-      </el-menu-item>
+      <el-submenu index="userInfo" v-if="isSign==='1'">
+        <template slot="title">
+          <div class="user-info" @click="pageGoTo('user/center')">
+            <img :src="userInfo.userImg" class="user-img" />
+            <span class="user-name">{{userInfo.nickname}}</span>
+          </div>
+        </template>
+        <el-menu-item index="user-center">User Center</el-menu-item>
+        <el-menu-item index="user-settings">Settings</el-menu-item>
+        <el-menu-item @click="signOut" class="sign-out">Sign Out</el-menu-item>
+      </el-submenu>
     </el-menu>
-
   </div>
 </template>
 
@@ -56,19 +60,23 @@
         // header-nav高亮项
         defaultActive: this.processRoute(this.$route.path),
         // 用户是否已经登录（1.是；2.否）
-        isSign: '1',
+        isSign: '2',
         searchPrefix: '',
         searchContent: '',
-        testUserImg: '../../static/test_user_img.jpg'
+        userInfo: ''
       }
     },
     watch: {
       $route(to, from) {
+        // 切换header-nav的高亮
         this.defaultActive = this.processRoute(to.path);
+        // 每次路由发生变化时，检查localStorage中是否存在userInfo
+        this.checkLoginStatus();
       }
     },
     mounted() {
-
+      // 载入组件时同样检查
+      this.checkLoginStatus();
     },
     methods: {
       handleSelect(key, keyPath) {
@@ -79,8 +87,34 @@
           this.pageGoTo(key);
         }
       },
+      checkLoginStatus: function () {
+        if(window.localStorage.userInfo) {
+          this.isSign = '1';
+          this.userInfo = JSON.parse(window.localStorage.userInfo);
+        } else {
+          this.isSign = '2';
+        }
+      },
       signInOrUp: function () {
-        this.pageGoTo('login');
+        this.pageGoTo('/login');
+      },
+      signOut: function() {
+        this.$confirm('Sign Out?', '提示', {
+          confirmButtonText: 'Sure',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: 'Sign Out Success!'
+          });
+          this.isSign = '2';
+          // 清除userInfo
+          window.localStorage.clear();
+        }).catch(() => {
+          // do nothing
+        });
+
       },
       pageGoTo: function (address) {
         this.$router.push({
@@ -107,6 +141,7 @@
     background: rgba(255, 255, 255, 1);
     border-radius: 0 0 20px 20px;
     border: 0;
+    overflow: hidden;
   }
 
   .header-nav-first {
@@ -138,17 +173,27 @@
     background-color: #fff;
   }
 
+  .el-submenu__icon-arrow {
+    display: none!important;
+  }
+
   .user-img {
     width: 45px;
     height: 45px;
     border-radius: 100%;
-    background: #CCC;
     border: 0;
-    margin-left: 10px;
   }
 
   .user-name {
-    margin-left: 20px;
+    margin-left: 10px;
+  }
+
+  .el-menu-item.sign-out {
+    color: #FF9AA7;
+  }
+
+  .el-menu-item.sign-out:hover {
+    color: #FF7F8F;
   }
 
 

@@ -34,9 +34,20 @@
         }
       }
     },
+    mounted: function() {
+
+    },
     methods: {
       login() {
-        console.log('submit!');
+        // 1. 拿着AccNo和PWD请求后台
+        console.log(this.loginForm);
+        // testData
+        let userInfo = {"accountNo":"zhangfd", "userImg":"../../static/default_user_img.jpg", "nickname":"Satsuki.Cyan", "token":"123qweasdzxc"};
+        // 2. 验证成功后将属性存入localStorage
+        let storage = window.localStorage;
+        storage.userInfo = JSON.stringify(userInfo);
+        // 3. 转入登录前的页面
+        this.$emit('goBackRoute');
       }
     }
   }
