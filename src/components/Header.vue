@@ -2,7 +2,7 @@
   <div id="componentHeader">
     <el-menu :default-active="defaultActive" active-text-color="#F60" class="el-menu-demo" mode="horizontal"
              @select="handleSelect">
-      <el-menu-item index="login" style="display: none;"></el-menu-item>
+      <el-menu-item index="hide" style="display: none;"></el-menu-item>
       <el-menu-item index="index">Main</el-menu-item>
       <el-submenu index="bangumi">
         <template slot="title"><i class="el-icon-menu"></i>Bangumi</template>
@@ -37,9 +37,9 @@
       <!-- 成功后要渲染出头像及消息一类的选项 -->
       <el-button v-if="isSign==='2'" class="header-nav-sign-in" size="medium" @click="signInOrUp" round>Sign In / Up</el-button>
       <!-- 登录成功后的样子 -->
-      <el-submenu index="userInfo" v-if="isSign==='1'">
+      <el-submenu index="" v-if="isSign==='1'">
         <template slot="title">
-          <div class="user-info" @click="pageGoTo('user/center')">
+          <div class="user-info" @click="pageGoTo('/user/center')">
             <img :src="userInfo.userImg" class="user-img" />
             <span class="user-name">{{userInfo.nickname}}</span>
           </div>
@@ -104,13 +104,19 @@
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
+          // 1. 弹出"登出成功"提示消息
           this.$message({
             type: 'success',
             message: 'Sign Out Success!'
           });
+          // 2. 切换显示"登录按钮"
           this.isSign = '2';
-          // 清除userInfo
+          // 3. 清除userInfo
           window.localStorage.clear();
+          // 4. 检查当前路由，如果为需要登录的页面则跳转至index
+          if(this.$route.fullPath.indexOf("user") !== -1) {
+            this.pageGoTo("/index");
+          }
         }).catch(() => {
           // do nothing
         });
@@ -127,6 +133,10 @@
         let keySplit = key.split("-");
         if(!isNaN(keySplit[keySplit.length-1])) {
           key = key.substring(0, key.lastIndexOf("-detail"));
+        }
+        // 当路由为"用户"或"登录"模块时，统一转key为"hide"（为了隐藏掉active）
+        if(key.indexOf("user") !== -1) {
+          key = "hide";
         }
         return key;
       }

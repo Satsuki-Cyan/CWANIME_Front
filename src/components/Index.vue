@@ -14,7 +14,7 @@
           <component-header ref="componentHeader"></component-header>
         </el-header>
 
-        <!-- Anime Content -->
+        <!-- Content -->
         <transition name="componentChangeSlide">
           <router-view></router-view>
         </transition>

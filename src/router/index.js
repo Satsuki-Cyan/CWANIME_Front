@@ -7,6 +7,8 @@ import Body from '@/components/Body'
 import Anime from '@/components/anime/Anime'
 import AnimeDetail from '@/components/anime/animeDetail/AnimeDetail'
 import AnimeByPage from '@/components/anime/animeDetail/AnimeByPage'
+import User from '@/components/user/User'
+import UserCenter from '@/components/user/UserCenter'
 
 
 import SystemConstant from '@/constants/systemConstant'
@@ -58,6 +60,21 @@ export default new Router({
               path: ':year/:month/detail/:id',
               name: 'animeDetailAndPlayer',
               component: AnimeDetail
+            }
+          ]
+        },
+        {
+          path: 'user',
+          component: User,
+          children: [
+            {
+              path: 'center',
+              name: 'userCenter',
+              component: UserCenter
+            },
+            {
+              path: '',
+              redirect: 'center',
             }
           ]
         }

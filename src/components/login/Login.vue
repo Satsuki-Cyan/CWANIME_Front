@@ -68,6 +68,14 @@
       SignIn,
       SignUp
     },
+    watch: {
+      $route(to, from) {
+        // 切换header-nav的高亮
+        this.defaultActive = this.processRoute(to.path);
+        // 每次路由发生变化时，检查localStorage中是否存在userInfo
+        this.checkLoginStatus();
+      }
+    },
     methods: {
       modelSwitch: function (model) {
         // 1. 走馬燈スイッチ
