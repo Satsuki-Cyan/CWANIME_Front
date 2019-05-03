@@ -190,7 +190,7 @@
   .user-img {
     width: 45px;
     height: 45px;
-    border-radius: 100%;
+    border-radius: 50%;
     border: 0;
   }
 

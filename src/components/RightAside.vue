@@ -27,7 +27,7 @@
     methods: {
       randomizedBackground: function () {
         // 1. 获取区间的随机数（ignore值为backgroundNum）
-        let num = this.COMMON_UTIL.randomNumStr(0, 19, this.backgroundNum, 4);
+        let num = this.COMMON_UTIL.randomNumStr(0, 20, this.backgroundNum, 4);
         // 2. 修复切换背景图时出现的“白色闪屏”现象
         let img = new Image();
         img.src = "./static/background_" + num + ".jpg";
