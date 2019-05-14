@@ -6,7 +6,7 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <!--<el-breadcrumb-item v-for="(item, i) in breadcrumb" :key="item.title" :to="{ path: item.path }">{{item.title}}</el-breadcrumb-item>-->
         <el-breadcrumb-item :to="{ path: '/index' }">Index</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: breadcrumb }">Bangumi</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: breadcrumbPath }">{{bangumiBreadcrumb}}</el-breadcrumb-item>
         <el-breadcrumb-item v-if="videoSource.length!==0">{{videoSource.animeTitle}}</el-breadcrumb-item>
       </el-breadcrumb>
     </el-header>
@@ -123,11 +123,6 @@
     ]
   };
 
-  const breadcrumb = [
-    {"title":"Index","path":"/index"},
-    {"title":"Bangumi","path":"/bangumi"},
-  ];
-
   // 以默认的基数进行集数拆分
   let episodesList = [];
 
@@ -152,7 +147,9 @@
         // 分好区间的集数
         episodesList: episodesList,
         // 面包屑bangumi
-        breadcrumb: ''
+        breadcrumbPath: '',
+        // bangumi-breadcrumb
+        bangumiBreadcrumb: `Bangumi ${this.$route.params.year}-${this.$route.params.month}`
       }
     },
     components: {
@@ -171,15 +168,16 @@
         this.$refs.animePlayer.bangumiDetail = this.videoSource.bangumiBOList[0];
       }
 
-      // 给breadcrumb（bangumi）赋值
+      // 给breadcrumbPath（bangumi）赋值
       let month = this.COMMON_UTIL.convertNum2Month(this.videoSource.month);
       // 判断在路由参数中是否能获得page，不能则默认为1
       let page = 1;
-      console.log("route.params.page: ",this.$route.params.page)
-      if(this.$route.params.page) {
-        page = this.$route.params.page;
-      }
-      this.breadcrumb = `/bangumi/${this.videoSource.year}/${month}/${page}`;
+      // 除了显式地放到url后面以外没办法传递page参数，蛋疼。。
+      // console.log("route.params.page: ",this.$route.params.page)
+      // if(this.$route.params.page) {
+      //   page = this.$route.params.page;
+      // }
+      this.breadcrumbPath = `/bangumi/${this.$route.params.year}/${this.$route.params.month}/${page}`;
 
       // 划分集数的区间
       if (episodesList.length === 0) {

@@ -10,7 +10,7 @@
     name: "LeftAside",
     data() {
       return {
-
+        imgUrl: ''
       }
     },
     mounted() {
@@ -33,11 +33,14 @@
         // 1. 保证只被点击一次
         let appOpacity = document.getElementById("app").style.opacity;
         if(appOpacity !== "0") {
+          this.imgUrl = document.body.style.backgroundImage;
+          // 截取并获得一个符合规范的url
+          let imgPath = this.imgUrl.substring(5, this.imgUrl.length - 2);
           // 2. 弹出提示消息
           this.$notify({
             title: '',
             dangerouslyUseHTMLString: true,
-            message: '按ESC退出壁纸模式，点击<a href="javascript:void(0)">这里</a>下载该壁纸',
+            message: `按ESC退出壁纸模式，点击<a href="${imgPath}" download="">这里</a>下载该壁纸`,
             duration: 0
           });
           // 3. 通过过渡效果来隐藏页面元素
@@ -58,6 +61,12 @@
       // 离开页面移除scroll事件
       window.removeEventListener('scroll', this.handleScroll);
     }
+  }
+
+  function downBackground () {
+      // 获取background的路径
+      console.log(document.body.style.backgroundImage)
+      // window.open();
   }
 </script>
 

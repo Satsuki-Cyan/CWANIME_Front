@@ -6,7 +6,7 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <!--<el-breadcrumb-item v-for="(item, i) in breadcrumb" :key="item.title" :to="{ path: item.path }">{{item.title}}</el-breadcrumb-item>-->
         <el-breadcrumb-item :to="{ path: '/index' }">Index</el-breadcrumb-item>
-        <el-breadcrumb-item>Bangumi</el-breadcrumb-item>
+        <el-breadcrumb-item>{{bangumiBreadcrumb}}</el-breadcrumb-item>
       </el-breadcrumb>
     </el-header>
 
@@ -75,16 +75,24 @@
         // 当前查询出的分页集合
         bangumiList: '',
         // bangumi-breadcrumb
-        bangumiBreadcrumb: ``
+        bangumiBreadcrumb: `Bangumi ${this.$route.params.year}-${this.$route.params.month}`
       }
     },
     mounted() {
       // TODO 根据条件，查询bangumi分页集合，考虑下根据路由变化来请求分页数据，请求完直接处理imgSrc
       // test写法，真正请求做法参照上面TODO来做
+      this.page = +this.$route.params.page;
       if(this.bangumiList.length === 0) {
+        // TODO 根据路由条件，查询当前分页数据（调用reqBangumiByPage）
+        // 查询条件...暂时只传路由参数
+        let params = this.$route.params;
+        this.reqBangumiByPage(params,this.page,this.pageSize);
+
         // 处理文件src路径的前缀
         this.SYS_CONST.addSystemResourcePrefix(testContent, "imgSrc");
         this.bangumiList = testContent;
+        console.log(this.$route)
+
       }
     },
     methods: {
@@ -92,24 +100,19 @@
         // 对path进行处理并路由
         let path = '/bangumi/' + obj.year + '/' + this.COMMON_UTIL.convertNum2Month(obj.month) + '/detail/' + obj.id;
         this.$router.push({
-          path: path,
-          params: {
-            id: obj.id
-          }
+          path: path
         });
       },
       pageChange: function (val) {
-        console.log(val)
         this.page = val;
-
-        // 查询条件...
-        let params = '';
-
-        this.reqBangumiByPage(params,this.page,this.pageSize);
+        // 进行路由跳转（更改路由后的page参数）
+        this.$router.push({
+          path: this.$route.fullPath.substring(0, this.$route.fullPath.lastIndexOf("/") + 1) + val
+        });
       },
       reqBangumiByPage: function (params, page, pageSize) {
-        // TODO 发起数据请求
-
+        // TODO 发起数据请求，请求结束后更新bangumiList
+        console.log('Update BangumiList...')
       }
     }
   }
